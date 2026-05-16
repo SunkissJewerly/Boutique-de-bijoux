@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bagues | SUNKISS JEWELRY</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@1,600&display=swap" rel="stylesheet">
+    <style>
+         :root { --brand-pink: #ffc5d3; --brand-light: #fff5f6; --text-dark: #1a1a1a; --out-of-stock: #999; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Montserrat', sans-serif; color: var(--text-dark); background: #fff; }
+        
+        /* HEADER FIXE */
+        .header-section { background-color: var(--brand-pink); padding: 30px 5% 20px 5%; text-align: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .logo-img { height: 10rem; width: auto; margin-bottom: 15px; cursor: pointer; }
+        
+        nav ul { display: flex; list-style: none; gap: 40px; justify-content: center; }
+        nav a { text-decoration: none; color: var(--text-dark); font-size: 15px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; }
+        nav a.active { border-bottom: 2px solid var(--text-dark); padding-bottom: 5px; }
+
+        .the-seasons { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 600; text-transform: none; }
+
+        /* TEXTE COMPTEUR DE PRODUITS */
+        .catalog-info-bar { text-align: right; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: #888; padding-bottom: 15px; margin-bottom: 40px; border-bottom: 1px solid #eee; }
+
+        /* GRILLE PRODUITS (4 COLONNES) */
+        main { padding: 50px 5% 80px 5%; max-width: 1300px; margin: 0 auto; }
+        .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px; }
+        
+        .p-card { text-align: center; cursor: pointer; border: 1px solid #eee; padding-bottom: 20px; transition: 0.3s; position: relative; background: #fff; }
+        .p-card:hover { border-color: var(--brand-pink); box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .p-card img { width: 100%; aspect-ratio: 4/5; object-fit: cover; margin-bottom: 15px; }
+        
+        .p-card.sold-out img { opacity: 0.85; }
+        .p-card h4 { font-weight: 400; text-transform: uppercase; font-size: 12px; padding: 0 10px; }
+        .p-card p { font-weight: 600; font-size: 13px; color: #555; margin-top: 5px; }
+        
+        /* Badge Stock */
+        .stock-badge { display: inline-block; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-top: 8px; padding: 3px 8px; border-radius: 2px; }
+        .stock-badge.out { background: #f2f2f2; color: var(--out-of-stock); }
+
+        /* POP-UP MODALE */
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 2000; justify-content: center; align-items: center; }
+        .modal-content { background: white; width: 90%; max-width: 800px; display: flex; position: relative; padding: 30px; gap: 30px; border-radius: 4px; }
+        .close-modal { position: absolute; top: 10px; right: 15px; font-size: 25px; cursor: pointer; color: #999; z-index: 10; }
+        
+        .modal-images { width: 50%; position: relative; }
+        .main-modal-img { width: 100%; position: relative; overflow: hidden; }
+        .main-modal-img img { width: 100%; aspect-ratio: 4/5; object-fit: cover; background: #fafafa; display: block; }
+        
+        /* Boutons flèches */
+        .nav-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.8);
+            color: #000;
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            z-index: 5;
+        }
+        .nav-arrow:hover { background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+        .arrow-left { left: 10px; }
+        .arrow-right { right: 10px; }
+
+        .modal-info { width: 50%; display: flex; flex-direction: column; justify-content: center; text-align: left; }
+        
+        .btn-add-modal { background: black; color: white; border: none; padding: 18px; width: 100%; cursor: pointer; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; font-size: 12px; transition: 0.3s; }
+        .btn-add-modal.disabled { background: #e0e0e0; color: #888; cursor: not-allowed; }
+
+        /* --- TIROIR LATÉRAL MINI-PANIER (STYLE SWAROVSKI) --- */
+        .side-cart {
+            position: fixed;
+            top: 0;
+            right: -450px; /* Masqué sur la droite au départ */
+            width: 420px;
+            height: 100%;
+            background: #fff;
+            box-shadow: -5px 0 30px rgba(0,0,0,0.1);
+            z-index: 3000;
+            display: flex;
+            flex-direction: column;
+            transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1); /* Animation de glissement haute précision */
+            padding: 35px 30px;
+        }
+        .side-cart.open { right: 0; } /* Glisse vers la gauche */
+
+        .side-cart-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding-bottom: 20px; margin-bottom: 25px; }
+        .side-cart-header h4 { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; gap: 8px; }
+        .close-side-cart { font-size: 26px; cursor: pointer; color: #aaa; }
+        .close-side-cart:hover { color: #000; }
+
+        .side-cart-body { flex-grow: 1; display: flex; gap: 20px; padding: 20px 0; border-bottom: 1px solid #eee; align-items: flex-start; }
+        .side-cart-img { width: 90px; aspect-ratio: 4/5; object-fit: cover; }
+        .side-cart-details { display: flex; flex-direction: column; gap: 5px; }
+        .side-cart-name { font-weight: 500; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .side-cart-price { font-weight: 600; font-size: 13px; color: #555; margin-top: 5px; }
+
+        .side-cart-footer { display: flex; flex-direction: column; gap: 12px; margin-top: 30px; }
+        .btn-side { width: 100%; padding: 16px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; cursor: pointer; transition: 0.3s; border-radius: 2px; border: none; text-align: center; text-decoration: none; }
+        .btn-side.black { background: black; color: white; }
+        .btn-side.black:hover { background: #333; }
+        .btn-side.outline { background: white; color: black; border: 1px solid black; }
+        .btn-side.outline:hover { background: #fafafa; }
+
+        /* BARRE DE REASSURANCE */
+        .reassurance-bar { display: flex; justify-content: space-around; background: #fafafa; padding: 25px; margin-top: 60px; text-align: center; border-top: 1px solid #eee; }
+        .reassurance-item { font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: #555; }
+
+        /* FOOTER */
+        footer { background: var(--text-dark); color: #fff; padding: 80px 5% 30px 5%; font-size: 12px; margin-top: 40px; }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 60px; max-width: 1300px; margin: 0 auto 60px auto; }
+        .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-style: italic; margin-bottom: 15px; letter-spacing: 2px; }
+        .footer-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 25px; color: var(--brand-pink); }
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 14px; }
+        .footer-links a { color: #bbb; text-decoration: none; transition: 0.3s; }
+        .footer-links a:hover { color: #fff; padding-left: 5px; }
+        .footer-bottom { border-top: 1px solid #2a2a2a; padding-top: 30px; display: flex; justify-content: space-between; max-width: 1300px; margin: 0 auto; color: #666; font-size: 11px; }
+
+        @media (max-width: 950px) { .grid { grid-template-columns: repeat(2, 1fr); } .footer-grid { grid-template-columns: 1fr; gap: 40px; } .reassurance-bar { flex-direction: column; gap: 15px; } .side-cart { width: 100%; right: -100%; } }
+        @media (max-width: 768px) { .modal-content { flex-direction: column; max-height: 95vh; overflow-y: auto; } .modal-images, .modal-info { width: 100%; } }
+    </style>
+</head>
+<body>
+
+    <div class="header-section">
+        <img src="logo.png" alt="SUNKISS" class="logo-img" onclick="window.location='index.html'">
+        <nav>
+            <ul>
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="colliers.html">Colliers</a></li>
+                <li><a href="bracelets.html">Bracelets</a></li>
+                <li><a href="bagues.html" class="active">Bagues</a></li>
+                <li><a href="boucles.html">Boucles</a></li>
+                <li><a href="panier.html">Panier</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <main>
+        <h1 style="text-align:center; margin-bottom:10px; font-weight:300;">Collection <span class="the-seasons" style="font-size:3.5rem;">Bagues</span></h1>
+        
+        <div class="catalog-info-bar">
+            2 modèles disponibles
+        </div>
+
+        <div class="grid">
+            
+            <div class="p-card sold-out" onclick="openModal('Bague maille Marine', '8,00', 'image/Gemini_Generated_Image_ogh4b3ogh4b3ogh4.jpg', 'porte/Gemini_Generated_Image_32mcap32mcap32mc.jpg', false)">
+                <img src="image/Gemini_Generated_Image_ogh4b3ogh4b3ogh4.jpg" alt="Bague maille Marine">
+                <h4>Bague maille Marine</h4>
+                <p>8,00 €</p>
+                <div class="stock-badge out">Victime de son succès</div>
+            </div>
+
+            <div class="p-card sold-out" onclick="openModal('Bague Flaure', '7,00', 'image/Gemini_Generated_Image_sw5nd5sw5nd5sw5n.jpg', 'porte/Gemini_Generated_Image_akrz0qakrz0qakrz.jpg', false)">
+                <img src="image/Gemini_Generated_Image_sw5nd5sw5nd5sw5n.jpg" alt="Bague Flaure">
+                <h4>Bague Flaure</h4>
+                <p>7,00 €</p>
+                <div class="stock-badge out">Victime de son succès</div>
+            </div>
+
+        </div>
+
+        <div class="reassurance-bar">
+            <div class="reassurance-item">✨ Acier Inoxydable</div>
+            <div class="reassurance-item">💧 Résiste à la vie quotidienne</div>
+            <div class="reassurance-item">🔒 Achats groupés via Vinted</div>
+        </div>
+    </main>
+
+    <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <span class="close-modal" onclick="document.getElementById('modalOverlay').style.display='none'">&times;</span>
+            <div class="modal-images">
+                <button class="nav-arrow arrow-left" id="prevBtn" onclick="toggleImage()">&#10094;</button>
+                <button class="nav-arrow arrow-right" id="nextBtn" onclick="toggleImage()">&#10095;</button>
+                
+                <div class="main-modal-img">
+                    <img id="mainImg" src="" alt="Bijou">
+                </div>
+            </div>
+            <div class="modal-info">
+                <h2 id="modalTitle" class="the-seasons" style="font-size: 2.2rem;">Nom</h2>
+                <p id="modalPrice" style="font-size: 1.3rem; margin: 10px 0;">0,00 €</p>
+                <p id="modalStockStatus" style="font-size: 11px; font-weight: 600; text-transform: uppercase; color: var(--out-of-stock); margin-bottom: 20px; letter-spacing: 1px;"></p>
+                <button class="btn-add-modal" id="addBtn">Ajouter au panier</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="sideCart" class="side-cart">
+        <div class="side-cart-header">
+            <h4><span style="color:#25d366;">✓</span> 1 article a été ajouté à votre panier</h4>
+            <span class="close-side-cart" onclick="closeSideCart()">&times;</span>
+        </div>
+        <div class="side-cart-body" id="sideCartBody">
+            </div>
+        <div class="side-cart-footer">
+            <a href="panier.html" class="btn-side black">Aperçu du panier</a>
+            <button class="btn-side outline" onclick="closeSideCart()">Continuer vos achats</button>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-grid">
+            <div>
+                <div class="footer-logo">Sunkiss Jewelry</div>
+                <p style="color: #bbb; line-height: 1.7; font-weight: 300;">Inscrivez-vous pour suivre le lancement des prochaines collections capsules exclusives et recevoir nos inspirations de saison.</p>
+            </div>
+            <div>
+                <h4 class="footer-title">Collections</h4>
+                <ul class="footer-links">
+                    <li><a href="colliers.html">Colliers Fins</a></li>
+                    <li><a href="bracelets.html">Joncs & Bracelets</a></li>
+                    <li><a href="bagues.html">Bagues Ajustables</a></li>
+                    <li><a href="boucles.html">Créoles & Boucles</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="footer-title">Aide & Infos</h4>
+                <ul class="footer-links">
+                    <li><a href="panier.html">Mon Panier</a></li>
+                    <li><a href="https://www.vinted.fr" target="_blank">Acheter sur Vinted</a></li>
+                    <li><a href="#">Conseils d'Entretien</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 SUNKISS JEWELRY. Tous droits réservés.</p>
+            <p>Paiements sécurisés & Envois garantis par Vinted</p>
+        </div>
+    </footer>
+
+    <script>
+        let modalImagesArray = [];
+        let currentIndex = 0;
+
+        function openModal(name, price, img1, img2, inStock) {
+            document.getElementById('modalTitle').innerText = name;
+            document.getElementById('modalPrice').innerText = price + " €";
+            
+            modalImagesArray = [img1];
+            if (img2) { modalImagesArray.push(img2); }
+            
+            currentIndex = 0;
+            document.getElementById('mainImg').src = modalImagesArray[currentIndex];
+
+            const leftArrow = document.getElementById('prevBtn');
+            const rightArrow = document.getElementById('nextBtn');
+            
+            if (modalImagesArray.length > 1) {
+                leftArrow.style.display = "flex";
+                rightArrow.style.display = "flex";
+            } else {
+                leftArrow.style.display = "none";
+                rightArrow.style.display = "none";
+            }
+            
+            const addBtn = document.getElementById('addBtn');
+            const statusText = document.getElementById('modalStockStatus');
+
+            if (inStock) {
+                statusText.innerText = "✨ En Stock";
+                statusText.style.color = "black";
+                addBtn.innerText = "Ajouter au panier";
+                addBtn.className = "btn-add-modal";
+                addBtn.disabled = false;
+                
+                addBtn.onclick = function() {
+                    let c = JSON.parse(localStorage.getItem('cart')) || [];
+                    c.push({name: name, price: parseFloat(price.replace(',','.')), img: img1});
+                    localStorage.setItem('cart', JSON.stringify(c));
+                    
+                    // Fermeture de la grande pop-up centrale
+                    document.getElementById('modalOverlay').style.display = 'none';
+                    
+                    // Préparation de l'aperçu du produit à droite
+                    document.getElementById('sideCartBody').innerHTML = `
+                        <img src="${img1}" class="side-cart-img">
+                        <div class="side-cart-details">
+                            <div class="side-cart-name">${name}</div>
+                            <div class="side-cart-price">${price} €</div>
+                        </div>
+                    `;
+                    
+                    // Déclenchement de l'animation latérale
+                    setTimeout(() => {
+                        document.getElementById('sideCart').classList.add('open');
+                    }, 150);
+                };
+            } else {
+                statusText.innerText = "❌ Épuisé - Bientôt de retour";
+                statusText.style.color = "#999";
+                addBtn.innerText = "Victime de son succès";
+                addBtn.className = "btn-add-modal disabled";
+                addBtn.disabled = true;
+                addBtn.onclick = null;
+            }
+
+            document.getElementById('modalOverlay').style.display = 'flex';
+        }
+
+        function toggleImage() {
+            if (modalImagesArray.length > 1) {
+                currentIndex = currentIndex === 0 ? 1 : 0;
+                document.getElementById('mainImg').src = modalImagesArray[currentIndex];
+            }
+        }
+        
+        function closeModal(e) { if(e.target.id === 'modalOverlay') { document.getElementById('modalOverlay').style.display = 'none'; } }
+        
+        // Fonctions spécifiques pour contrôler le tiroir latéral
+        function closeSideCart() {
+            document.getElementById('sideCart').classList.remove('open');
+        }
+
+        // Fermeture si clic en dehors du tiroir
+        document.addEventListener('click', function(e) {
+            const sideCart = document.getElementById('sideCart');
+            if (sideCart.classList.contains('open') && !sideCart.contains(e.target) && !e.target.closest('.p-card') && !document.getElementById('modalOverlay').contains(e.target)) {
+                closeSideCart();
+            }
+        });
+    </script>
+</body>
+</html>
