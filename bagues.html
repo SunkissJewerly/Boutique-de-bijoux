@@ -41,6 +41,11 @@
         .p-card h4 { font-weight: 400; text-transform: uppercase; font-size: 12px; padding: 0 10px; }
         .p-card p { font-weight: 600; font-size: 13px; color: #555; margin-top: 5px; }
         
+        /* BOUTON COEUR FAVORIS */
+        .fav-btn { position: absolute; top: 15px; right: 15px; background: white; border: none; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; color: #ccc; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.1); transition: 0.2s ease; z-index: 10; }
+        .fav-btn:hover { transform: scale(1.1); color: #ff4757; }
+        .fav-btn.active { color: #ff4757 !important; }
+
         /* Badge Stock */
         .stock-badge { display: inline-block; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-top: 8px; padding: 3px 8px; border-radius: 2px; }
         .stock-badge.out { background: #f2f2f2; color: var(--out-of-stock); }
@@ -55,49 +60,17 @@
         .main-modal-img img { width: 100%; aspect-ratio: 4/5; object-fit: cover; background: #fafafa; display: block; }
         
         /* Flèches de défilement */
-        .nav-arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(255, 255, 255, 0.8);
-            color: #000;
-            border: none;
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            font-size: 16px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: 0.3s;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            z-index: 5;
-        }
+        .nav-arrow { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255, 255, 255, 0.8); color: #000; border: none; width: 35px; height: 35px; border-radius: 50%; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.1); z-index: 5; }
         .nav-arrow:hover { background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
         .arrow-left { left: 10px; }
         .arrow-right { right: 10px; }
 
         .modal-info { width: 50%; display: flex; flex-direction: column; justify-content: center; text-align: left; }
-        
         .btn-add-modal { background: black; color: white; border: none; padding: 18px; width: 100%; cursor: pointer; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; font-size: 12px; transition: 0.3s; }
         .btn-add-modal.disabled { background: #e0e0e0; color: #888; cursor: not-allowed; }
 
-        /* --- TIROIR LATÉRAL MINI-PANIER (STYLE SWAROVSKI) --- */
-        .side-cart {
-            position: fixed;
-            top: 0;
-            right: -450px;
-            width: 420px;
-            height: 100%;
-            background: #fff;
-            box-shadow: -5px 0 30px rgba(0,0,0,0.1);
-            z-index: 3000;
-            display: flex;
-            flex-direction: column;
-            transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            padding: 35px 30px;
-        }
+        /* --- TIROIR LATÉRAL MINI-PANIER --- */
+        .side-cart { position: fixed; top: 0; right: -450px; width: 420px; height: 100%; background: #fff; box-shadow: -5px 0 30px rgba(0,0,0,0.1); z-index: 3000; display: flex; flex-direction: column; transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1); padding: 35px 30px; }
         .side-cart.open { right: 0; }
 
         .side-cart-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding-bottom: 20px; margin-bottom: 25px; }
@@ -116,7 +89,6 @@
         .btn-side.black { background: black; color: white; }
         .btn-side.black:hover { background: #333; }
         .btn-side.outline { background: white; color: black; border: 1px solid black; }
-        .btn-side.outline:hover { background: #fafafa; }
 
         /* BARRE DE REASSURANCE */
         .reassurance-bar { display: flex; justify-content: space-around; background: #fafafa; padding: 25px; margin-top: 60px; text-align: center; border-top: 1px solid #eee; }
@@ -138,7 +110,6 @@
             .header-section { padding: 20px 5%; }
             .logo-img { height: 6rem; margin-bottom: 10px; }
             
-            /* Menu burger mobile coulissant */
             nav ul { 
                 display: none; 
                 flex-direction: column; 
@@ -155,11 +126,9 @@
             .burger-menu { display: flex; }
             nav a.active { border-bottom: none; padding-bottom: 0; font-weight:700; }
 
-            .grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+            .grid { grid-template-columns: repeat(2, 1fr); gap: 20px; } /* Tablettes à 2 colonnes */
             .footer-grid { grid-template-columns: 1fr; gap: 40px; }
             .reassurance-bar { flex-direction: column; gap: 15px; }
-            
-            /* Ajustement pleine largeur pour mobile du mini-panier */
             .side-cart { width: 100%; right: -100%; padding: 30px 20px; }
         }
         
@@ -170,9 +139,11 @@
         }
 
         @media (max-width: 480px) {
-            .grid { grid-template-columns: 1fr; gap: 25px; }
+            .grid { grid-template-columns: repeat(2, 1fr); gap: 15px; } /* Téléphones forcés à 2 colonnes avec espacement plus fin */
             .catalog-info-bar { text-align: center; }
             .footer-bottom { flex-direction: column; gap: 15px; text-align: center; }
+            .p-card h4 { font-size: 11px; } /* Légère réduction du titre pour s'aligner proprement */
+            .p-card p { font-size: 12px; }
         }
     </style>
 </head>
@@ -194,6 +165,7 @@
                 <li><a href="bracelets.html">Bracelets</a></li>
                 <li><a href="bagues.html" class="active">Bagues</a></li>
                 <li><a href="boucles.html">Boucles</a></li>
+                <li><a href="favoris.html">Favoris</a></li>
                 <li><a href="panier.html">Panier</a></li>
             </ul>
         </nav>
@@ -208,6 +180,7 @@
 
         <div class="grid">
             <div class="p-card sold-out" onclick="openModal('Bague maille Marine', '8,00', 'image/Gemini_Generated_Image_ogh4b3ogh4b3ogh4.jpg', 'porte/Gemini_Generated_Image_32mcap32mcap32mc.jpg', false)">
+                <button class="fav-btn" data-name="Bague maille Marine" data-price="8,00" data-img="image/Gemini_Generated_Image_ogh4b3ogh4b3ogh4.jpg">♥</button>
                 <img src="image/Gemini_Generated_Image_ogh4b3ogh4b3ogh4.jpg" alt="Bague maille Marine">
                 <h4>Bague maille Marine</h4>
                 <p>8,00 €</p>
@@ -215,6 +188,7 @@
             </div>
 
             <div class="p-card sold-out" onclick="openModal('Bague Flaure', '7,00', 'image/Gemini_Generated_Image_sw5nd5sw5nd5sw5n.jpg', 'porte/Gemini_Generated_Image_akrz0qakrz0qakrz.jpg', false)">
+                <button class="fav-btn" data-name="Bague Flaure" data-price="7,00" data-img="image/Gemini_Generated_Image_sw5nd5sw5nd5sw5n.jpg">♥</button>
                 <img src="image/Gemini_Generated_Image_sw5nd5sw5nd5sw5n.jpg" alt="Bague Flaure">
                 <h4>Bague Flaure</h4>
                 <p>7,00 €</p>
@@ -235,7 +209,6 @@
             <div class="modal-images">
                 <button class="nav-arrow arrow-left" id="prevBtn" onclick="toggleImage()">&#10094;</button>
                 <button class="nav-arrow arrow-right" id="nextBtn" onclick="toggleImage()">&#10095;</button>
-                
                 <div class="main-modal-img">
                     <img id="mainImg" src="" alt="Bijou">
                 </div>
@@ -294,6 +267,40 @@
     <script>
         let modalImagesArray = [];
         let currentIndex = 0;
+
+        // Gestion propre de l'état des cœurs via DOMContentLoaded
+        document.addEventListener("DOMContentLoaded", () => {
+            const favs = JSON.parse(localStorage.getItem('favorites')) || [];
+            
+            // 1. On allume les favoris existants
+            document.querySelectorAll('.fav-btn').forEach(btn => {
+                const name = btn.getAttribute('data-name').trim();
+                if (favs.some(f => f.name.trim() === name)) {
+                    btn.classList.add('active');
+                }
+                
+                // 2. Gestion du clic sécurisée
+                btn.addEventListener('click', (event) => {
+                    event.stopPropagation(); // Bloque openModal
+                    let currentFavs = JSON.parse(localStorage.getItem('favorites')) || [];
+                    
+                    const pName = btn.getAttribute('data-name').trim();
+                    const pPrice = btn.getAttribute('data-price');
+                    const pImg = btn.getAttribute('data-img');
+                    
+                    const index = currentFavs.findIndex(f => f.name.trim() === pName);
+                    
+                    if (index > -1) {
+                        currentFavs.splice(index, 1);
+                        btn.classList.remove('active');
+                    } else {
+                        currentFavs.push({ name: pName, price: pPrice, img: pImg });
+                        btn.classList.add('active');
+                    }
+                    localStorage.setItem('favorites', JSON.stringify(currentFavs));
+                });
+            });
+        });
 
         function openModal(name, price, img1, img2, inStock) {
             document.getElementById('modalTitle').innerText = name;
@@ -377,7 +384,6 @@
             }
         });
 
-        // Gestion du menu burger mobile
         function toggleMenu() {
             const navLinks = document.getElementById('navLinks');
             navLinks.classList.toggle('mobile-open');

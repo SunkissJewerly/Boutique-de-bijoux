@@ -41,6 +41,11 @@
         .p-card h4 { font-weight: 400; text-transform: uppercase; font-size: 12px; padding: 0 10px; }
         .p-card p { font-weight: 600; font-size: 13px; color: #555; margin-top: 5px; }
         
+        /* BOUTON COEUR FAVORIS */
+        .fav-btn { position: absolute; top: 15px; right: 15px; background: white; border: none; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; color: #ccc; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.1); transition: 0.2s ease; z-index: 10; }
+        .fav-btn:hover { transform: scale(1.1); color: #ff4757; }
+        .fav-btn.active { color: #ff4757 !important; }
+
         /* Badge Stock */
         .stock-badge { display: inline-block; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-top: 8px; padding: 3px 8px; border-radius: 2px; }
         .stock-badge.out { background: #f2f2f2; color: var(--out-of-stock); }
@@ -83,11 +88,11 @@
         .btn-add-modal { background: black; color: white; border: none; padding: 18px; width: 100%; cursor: pointer; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; font-size: 12px; transition: 0.3s; }
         .btn-add-modal.disabled { background: #e0e0e0; color: #888; cursor: not-allowed; }
 
-        /* --- TIROIR LATÉRAL MINI-PANIER (STYLE PRESTIGE) --- */
+        /* --- TIROIR LATÉRAL MINI-PANIER --- */
         .side-cart {
             position: fixed;
             top: 0;
-            right: -450px; /* Masqué sur la droite au départ */
+            right: -450px;
             width: 420px;
             height: 100%;
             background: #fff;
@@ -133,12 +138,11 @@
         .footer-links a:hover { color: #fff; padding-left: 5px; }
         .footer-bottom { border-top: 1px solid #2a2a2a; padding-top: 30px; display: flex; justify-content: space-between; max-width: 1300px; margin: 0 auto; color: #666; font-size: 11px; }
 
-        /* MEDIA QUERIES COMPLETES POUR RESPONSIVE (TABLETTES & SMARTPHONES) */
+        /* MEDIA QUERIES RESPONSIVE COMPLET (TABLETTES & SMARTPHONES) */
         @media (max-width: 950px) {
             .header-section { padding: 20px 5%; }
             .logo-img { height: 6rem; margin-bottom: 10px; }
             
-            /* Menu burger tiroir mobile */
             nav ul { 
                 display: none; 
                 flex-direction: column; 
@@ -155,11 +159,9 @@
             .burger-menu { display: flex; }
             nav a.active { border-bottom: none; padding-bottom: 0; font-weight:700; }
 
-            .grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+            .grid { grid-template-columns: repeat(2, 1fr); gap: 20px; } /* Tablettes à 2 colonnes */
             .footer-grid { grid-template-columns: 1fr; gap: 40px; }
             .reassurance-bar { flex-direction: column; gap: 15px; }
-            
-            /* Ajustement du tiroir latéral mini-panier */
             .side-cart { width: 100%; right: -100%; padding: 30px 20px; }
         }
         
@@ -170,9 +172,11 @@
         }
 
         @media (max-width: 480px) {
-            .grid { grid-template-columns: 1fr; gap: 25px; }
+            .grid { grid-template-columns: repeat(2, 1fr); gap: 15px; } /* Téléphones forcés à 2 colonnes avec espacement plus fin */
             .catalog-info-bar { text-align: center; }
             .footer-bottom { flex-direction: column; gap: 15px; text-align: center; }
+            .p-card h4 { font-size: 11px; } /* Légère réduction du titre pour s'aligner proprement */
+            .p-card p { font-size: 12px; }
         }
     </style>
 </head>
@@ -194,6 +198,7 @@
                 <li><a href="bracelets.html">Bracelets</a></li>
                 <li><a href="bagues.html">Bagues</a></li>
                 <li><a href="boucles.html">Boucles</a></li>
+                <li><a href="favoris.html">Favoris</a></li>
                 <li><a href="panier.html">Panier</a></li>
             </ul>
         </nav>
@@ -208,6 +213,7 @@
 
         <div class="grid">
             <div class="p-card sold-out" onclick="openModal('Collier maille Marine', '10,00', 'image/Gemini_Generated_Image_u7rb75u7rb75u7rb.jpg' , 'porte/Gemini_Generated_Image_6647lg6647lg6647.jpg', false)">
+                <button class="fav-btn" data-name="Collier maille Marine" data-price="10,00" data-img="image/Gemini_Generated_Image_u7rb75u7rb75u7rb.jpg">♥</button>
                 <img src="image/Gemini_Generated_Image_u7rb75u7rb75u7rb.jpg">
                 <h4>Collier maille Marine</h4>
                 <p>10,00 €</p>
@@ -215,6 +221,7 @@
             </div>
 
             <div class="p-card sold-out" onclick="openModal('Collier Estelle', '12,00', 'image/Gemini_Generated_Image_i0l0yhi0l0yhi0l0.jpg', 'porte/Gemini_Generated_Image_kqxlcckqxlcckqxl.jpg', false)">
+                <button class="fav-btn" data-name="Collier Estelle" data-price="12,00" data-img="image/Gemini_Generated_Image_i0l0yhi0l0yhi0l0.jpg">♥</button>
                 <img src="image/Gemini_Generated_Image_i0l0yhi0l0yhi0l0.jpg">
                 <h4>Collier Estelle</h4>
                 <p>12,00 €</p>
@@ -294,6 +301,40 @@
     <script>
         let modalImagesArray = [];
         let currentIndex = 0;
+
+        // Gestion de l'affichage et de la mémorisation isolée des favoris
+        document.addEventListener("DOMContentLoaded", () => {
+            const favs = JSON.parse(localStorage.getItem('favorites')) || [];
+            
+            // 1. Allumer les cœurs déjà enregistrés dans localStorage
+            document.querySelectorAll('.fav-btn').forEach(btn => {
+                const name = btn.getAttribute('data-name').trim();
+                if (favs.some(f => f.name.trim() === name)) {
+                    btn.classList.add('active');
+                }
+                
+                // 2. Gestionnaire d'événement au clic isolé
+                btn.addEventListener('click', (event) => {
+                    event.stopPropagation(); // Évite le conflit avec l'ouverture de la modale p-card
+                    let currentFavs = JSON.parse(localStorage.getItem('favorites')) || [];
+                    
+                    const pName = btn.getAttribute('data-name').trim();
+                    const pPrice = btn.getAttribute('data-price');
+                    const pImg = btn.getAttribute('data-img');
+                    
+                    const index = currentFavs.findIndex(f => f.name.trim() === pName);
+                    
+                    if (index > -1) {
+                        currentFavs.splice(index, 1);
+                        btn.classList.remove('active');
+                    } else {
+                        currentFavs.push({ name: pName, price: pPrice, img: pImg });
+                        btn.classList.add('active');
+                    }
+                    localStorage.setItem('favorites', JSON.stringify(currentFavs));
+                });
+            });
+        });
 
         function openModal(name, price, img1, img2, inStock) {
             document.getElementById('modalTitle').innerText = name;
@@ -377,7 +418,6 @@
             }
         });
 
-        // Gestion globale du menu burger mobile
         function toggleMenu() {
             const navLinks = document.getElementById('navLinks');
             navLinks.classList.toggle('mobile-open');

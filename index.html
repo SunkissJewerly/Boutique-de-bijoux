@@ -59,12 +59,13 @@
         .feature-item { font-size: 12px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: #444; display: flex; align-items: center; gap: 10px; }
         .feature-item span { font-size: 22px; }
 
-        /* GRILLE DES CATÉGORIES */
-        .grid-cats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 120px; }
-        .cat-card { position: relative; aspect-ratio: 4/5; overflow: hidden; text-decoration: none; display: block; box-shadow: 0 5px 15px rgba(0,0,0,0.02); }
-        .cat-card img { width: 100%; height: 100%; object-fit: cover; transition: 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+        /* --- STYLE DES CATÉGORIES DE BASE (PC) --- */
+        .categories-container { width: 100%; margin-bottom: 120px; }
+        .grid-cats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+        .cat-card { position: relative; aspect-ratio: 4/5; overflow: hidden; text-decoration: none; display: block; box-shadow: 0 5px 15px rgba(0,0,0,0.02); border: 1px solid #eee; background: #fff; }
+        .cat-card img { width: 100%; height: 100%; object-fit: cover; display: block; transition: 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
         .cat-card:hover img { transform: scale(1.06); }
-        .cat-label { position: absolute; bottom: 25px; left: 25px; background: white; padding: 10px 20px; font-weight: 600; color: black; font-size: 11px; letter-spacing: 1.5px; box-shadow: 0 3px 10px rgba(0,0,0,0.05); }
+        .cat-label { position: absolute; bottom: 25px; left: 25px; background: white; padding: 10px 20px; font-weight: 600; color: black; font-size: 11px; letter-spacing: 1.5px; box-shadow: 0 3px 10px rgba(0,0,0,0.05); text-transform: uppercase; }
 
         /* BANNIÈRE EDITO SWAROVSKI */
         .banner-container { display: flex; background: #fff; margin: 120px 0; border: 1px solid #f5f5f5; align-items: center; }
@@ -107,7 +108,7 @@
         .review-text { font-size: 12px; line-height: 1.7; color: #555; font-style: italic; margin-bottom: 15px; }
         .review-author { font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: #000; }
 
-        /* FOOTER ULTRA PROFESSIONNEL */
+        /* FOOTER */
         footer { background: var(--text-dark); color: #fff; padding: 80px 5% 30px 5%; font-size: 12px; }
         .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 60px; max-width: 1400px; margin: 0 auto 60px auto; }
         .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-style: italic; margin-bottom: 15px; letter-spacing: 2px; }
@@ -117,35 +118,17 @@
         .footer-links a { color: #bbb; text-decoration: none; transition: 0.3s; }
         .footer-links a:hover { color: #fff; padding-left: 5px; }
         
-        /* ZONE WHATSAPP CANAL EN BAS */
         .newsletter-box p { color: #bbb; margin-bottom: 20px; line-height: 1.7; font-weight: 300; }
-        .btn-whatsapp-channel { 
-            display: inline-flex; 
-            align-items: center; 
-            justify-content: center; 
-            background: #fff; 
-            color: #000; 
-            text-decoration: none; 
-            padding: 14px 25px; 
-            font-size: 11px; 
-            font-weight: 600; 
-            text-transform: uppercase; 
-            letter-spacing: 1px; 
-            border-radius: 2px; 
-            transition: 0.3s; 
-            width: 100%;
-            text-align: center;
-        }
+        .btn-whatsapp-channel { display: inline-flex; align-items: center; justify-content: center; background: #fff; color: #000; text-decoration: none; padding: 14px 25px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; border-radius: 2px; transition: 0.3s; width: 100%; text-align: center; }
         .btn-whatsapp-channel:hover { background: var(--brand-pink); color: #000; }
 
         .footer-bottom { border-top: 1px solid #2a2a2a; padding-top: 30px; display: flex; justify-content: space-between; max-width: 1400px; margin: 0 auto; color: #666; font-size: 11px; }
 
-        /* RESPONSIVE ACCUEIL COMPLET (TABLETTE ET TELEPHONE) */
+        /* --- RESPONSIVE GENERAL ACCUEIL (TABLETTE & TELEPHONE) --- */
         @media (max-width: 950px) {
             .header-section { padding: 20px 5%; }
             .logo-img { height: 6rem; margin-bottom: 10px; }
             
-            /* Mutation de la navigation en tiroir coulissant mobile */
             nav ul { 
                 display: none; 
                 flex-direction: column; 
@@ -162,7 +145,32 @@
             .burger-menu { display: flex; }
             
             .hero-main-title { font-size: 3.5rem; }
-            .grid-cats { grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 80px; }
+            
+            /* MUTATION DE LA SECTION EN CARROUSSEL/SLIDER HORIZONTAL */
+            .categories-container {
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch;
+                padding: 10px 5%;
+                margin: 0 -5% 80px -5%;
+                width: calc(100% + 10%);
+            }
+            /* Masquer la scrollbar du slider */
+            .categories-container::-webkit-scrollbar { display: none; }
+            .categories-container { -ms-overflow-style: none; scrollbar-width: none; }
+
+            .grid-cats {
+                display: flex;
+                grid-template-columns: none;
+                gap: 15px;
+                width: max-content;
+            }
+            .cat-card {
+                scroll-snap-align: start;
+                width: 250px; /* Largeur d'une diapo sur mobile */
+                flex-shrink: 0;
+            }
+
             .reviews-grid, .footer-grid { grid-template-columns: repeat(2, 1fr); gap: 40px; }
             
             .manifesto-section { flex-direction: column; padding: 40px 30px; gap: 30px; margin-bottom: 80px; }
@@ -183,10 +191,8 @@
         @media (max-width: 600px) {
             .announcement-bar { font-size: 9px; letter-spacing: 1px; }
             .hero-main-title { font-size: 2.5rem; margin-bottom: 20px; }
-            .hero-subtitle { font-spacing: 2px; }
             .section-title { font-size: 22px; margin-bottom: 40px; }
             
-            .grid-cats { grid-template-columns: 1fr; gap: 20px; }
             .moodboard-grid { grid-template-columns: 1fr; }
             .mood-item:first-child { grid-column: span 1; }
             
@@ -201,7 +207,7 @@
 </head>
 <body>
 
-    <div class="announcement-bar">✨ LIVRAISON GARANTIE & SÉCURISÉE VIA LES LOTS VINTED ✨</div>
+    <div class="announcement-bar">✨ LIVRAISON GARANTIE & SÉCURISÉE VIA LES LOTS VINTED ✨      |       1 bijou offert dès 30€ d'achat !</div>
 
     <div class="header-section">
         <img src="logo.png" alt="SUNKISS" class="logo-img" onclick="window.location='index.html'">
@@ -219,6 +225,7 @@
                 <li><a href="bracelets.html">Bracelets</a></li>
                 <li><a href="bagues.html">Bagues</a></li>
                 <li><a href="boucles.html">Boucles</a></li>
+                <li><a href="favoris.html">Favoris</a></li>
                 <li><a href="panier.html">Panier</a></li>
             </ul>
         </nav>
@@ -240,11 +247,14 @@
         </div>
 
         <h2 class="section-title">Acheter par <span class="the-seasons" style="font-size:3.5rem;">Catégorie</span></h2>
-        <div class="grid-cats">
-            <a href="colliers.html" class="cat-card"><img src="image/Gemini_Generated_Image_u7rb75u7rb75u7rb.jpg"><span class="cat-label">COLLIERS</span></a>
-            <a href="bracelets.html" class="cat-card"><img src="image/Gemini_Generated_Image_m91a0qm91a0qm91a.jpg"><span class="cat-label">BRACELETS</span></a>
-            <a href="bagues.html" class="cat-card"><img src="image/Gemini_Generated_Image_ogh4b3ogh4b3ogh4.jpg"><span class="cat-label">BAGUES</span></a>
-            <a href="boucles.html" class="cat-card"><img src="image/Gemini_Generated_Image_r1lhrlr1lhrlr1lh.jpg"><span class="cat-label">BOUCLES</span></a>
+        
+        <div class="categories-container">
+            <div class="grid-cats">
+                <a href="colliers.html" class="cat-card"><img src="image/Gemini_Generated_Image_u7rb75u7rb75u7rb.jpg"><span class="cat-label">COLLIERS</span></a>
+                <a href="bracelets.html" class="cat-card"><img src="image/Gemini_Generated_Image_m91a0qm91a0qm91a.jpg"><span class="cat-label">BRACELETS</span></a>
+                <a href="bagues.html" class="cat-card"><img src="image/Gemini_Generated_Image_ogh4b3ogh4b3ogh4.jpg"><span class="cat-label">BAGUES</span></a>
+                <a href="boucles.html" class="cat-card"><img src="image/Gemini_Generated_Image_r1lhrlr1lhrlr1lh.jpg"><span class="cat-label">BOUCLES</span></a>
+            </div>
         </div>
 
         <div class="banner-container">
@@ -255,9 +265,9 @@
                 <p class="banner-subtitle">Poésie des matières</p>
                 <h2 class="banner-title">L'Élégance Singulière de nos Créations</h2>
                 <p class="banner-description">
-                    Nos collections associent la délicatesse des lignes modernes au savoir-faire traditionnel pour créer des pièces d'exception faites pour briller au quotidien.
+                    Nos collections associent la délicatesse des lines modernes au savoir-faire traditionnel pour créer des pièces d'exception faites pour briller au quotidien.
                 </p>
-                <a href="colliers.html" class="banner-link">Acheter maintenant</a>
+                <a href="bracelets.html" class="banner-link">Acheter maintenant</a>
                 <a href="bracelets.html" class="banner-link" style="font-weight: 400; font-size: 12px; color: #666; border-color: #666;">Voir la collection complète</a>
             </div>
         </div>
@@ -325,8 +335,8 @@
             <div class="newsletter-box">
                 <div class="footer-logo">Sunkiss Jewelry</div>
                 <p>Rejoins notre canal WhatsApp exclusif pour suivre le lancement des prochaines collections et recevoir des inspirations de saison en avant-première.</p>
-                <a href="https://whatsapp.com/channel/REMPLACE_AVEC_TON_LIEN_DE_CANAL" target="_blank" class="btn-whatsapp-channel">
-                    Rejoindre le Club 📲
+                <a href="https://whatsapp.com/channel/0029VbCT8OS8PgsCcN5wkQ0C" target="_blank" class="btn-whatsapp-channel">
+                    Rejoindre le Canal 📲
                 </a>
             </div>
             <div>
@@ -355,7 +365,6 @@
     </footer>
 
     <script>
-        // Fonction d'affichage de l'accordéon FAQ
         function toggleFaq(element) {
             const answer = element.querySelector('.faq-answer');
             const span = element.querySelector('.faq-question span');
@@ -368,12 +377,10 @@
             }
         }
 
-        // Fonction pour piloter l'ouverture du menu de navigation mobile
         function toggleMenu() {
             const navLinks = document.getElementById('navLinks');
             navLinks.classList.toggle('mobile-open');
             
-            // Animation des barres du menu burger pour former une croix (X)
             const bar1 = document.getElementById('bar1');
             const bar2 = document.getElementById('bar2');
             const bar3 = document.getElementById('bar3');

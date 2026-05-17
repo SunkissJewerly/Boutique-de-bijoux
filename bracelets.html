@@ -41,6 +41,11 @@
         .p-card h4 { font-weight: 400; text-transform: uppercase; font-size: 12px; padding: 0 10px; }
         .p-card p { font-weight: 600; font-size: 13px; color: #555; margin-top: 5px; }
         
+        /* BOUTON COEUR FAVORIS */
+        .fav-btn { position: absolute; top: 15px; right: 15px; background: white; border: none; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; color: #ccc; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.1); transition: 0.2s ease; z-index: 10; }
+        .fav-btn:hover { transform: scale(1.1); color: #ff4757; }
+        .fav-btn.active { color: #ff4757 !important; }
+
         /* Badge Stock */
         .stock-badge { display: inline-block; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-top: 8px; padding: 3px 8px; border-radius: 2px; }
         .stock-badge.out { background: #f2f2f2; color: var(--out-of-stock); }
@@ -54,69 +59,33 @@
         .main-modal-img { width: 100%; position: relative; overflow: hidden; }
         .main-modal-img img { width: 100%; aspect-ratio: 4/5; object-fit: cover; background: #fafafa; display: block; }
         
-        /* Flèches de défilement */
-        .nav-arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(255, 255, 255, 0.8);
-            color: #000;
-            border: none;
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            font-size: 16px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: 0.3s;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            z-index: 5;
-        }
+        /* Flèches */
+        .nav-arrow { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255, 255, 255, 0.8); color: #000; border: none; width: 35px; height: 35px; border-radius: 50%; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.1); z-index: 5; }
         .nav-arrow:hover { background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
         .arrow-left { left: 10px; }
         .arrow-right { right: 10px; }
 
         .modal-info { width: 50%; display: flex; flex-direction: column; justify-content: center; text-align: left; }
-        
         .btn-add-modal { background: black; color: white; border: none; padding: 18px; width: 100%; cursor: pointer; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; font-size: 12px; transition: 0.3s; }
         .btn-add-modal.disabled { background: #e0e0e0; color: #888; cursor: not-allowed; }
 
-        /* --- TIROIR LATÉRAL MINI-PANIER (STYLE SWAROVSKI) --- */
-        .side-cart {
-            position: fixed;
-            top: 0;
-            right: -450px; /* Masqué sur la droite au départ */
-            width: 420px;
-            height: 100%;
-            background: #fff;
-            box-shadow: -5px 0 30px rgba(0,0,0,0.1);
-            z-index: 3000;
-            display: flex;
-            flex-direction: column;
-            transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            padding: 35px 30px;
-        }
+        /* TIROIR LATÉRAL MINI-PANIER */
+        .side-cart { position: fixed; top: 0; right: -450px; width: 420px; height: 100%; background: #fff; box-shadow: -5px 0 30px rgba(0,0,0,0.1); z-index: 3000; display: flex; flex-direction: column; transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1); padding: 35px 30px; }
         .side-cart.open { right: 0; }
-
         .side-cart-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding-bottom: 20px; margin-bottom: 25px; }
         .side-cart-header h4 { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; gap: 8px; }
         .close-side-cart { font-size: 26px; cursor: pointer; color: #aaa; }
         .close-side-cart:hover { color: #000; }
-
         .side-cart-body { flex-grow: 1; display: flex; gap: 20px; padding: 20px 0; border-bottom: 1px solid #eee; align-items: flex-start; }
         .side-cart-img { width: 90px; aspect-ratio: 4/5; object-fit: cover; }
         .side-cart-details { display: flex; flex-direction: column; gap: 5px; }
         .side-cart-name { font-weight: 500; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; }
         .side-cart-price { font-weight: 600; font-size: 13px; color: #555; margin-top: 5px; }
-
         .side-cart-footer { display: flex; flex-direction: column; gap: 12px; margin-top: 30px; }
         .btn-side { width: 100%; padding: 16px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; cursor: pointer; transition: 0.3s; border-radius: 2px; border: none; text-align: center; text-decoration: none; }
         .btn-side.black { background: black; color: white; }
         .btn-side.black:hover { background: #333; }
         .btn-side.outline { background: white; color: black; border: 1px solid black; }
-        .btn-side.outline:hover { background: #fafafa; }
 
         /* BARRE DE REASSURANCE */
         .reassurance-bar { display: flex; justify-content: space-around; background: #fafafa; padding: 25px; margin-top: 60px; text-align: center; border-top: 1px solid #eee; }
@@ -133,12 +102,11 @@
         .footer-links a:hover { color: #fff; padding-left: 5px; }
         .footer-bottom { border-top: 1px solid #2a2a2a; padding-top: 30px; display: flex; justify-content: space-between; max-width: 1300px; margin: 0 auto; color: #666; font-size: 11px; }
 
-        /* MEDIA QUERIES COMPLETES POUR RESPONSIVE (TABLETTES & SMARTPHONES) */
+        /* MEDIA QUERIES RESPONSIVE COMPLET (TABLETTES & SMARTPHONES) */
         @media (max-width: 950px) {
             .header-section { padding: 20px 5%; }
             .logo-img { height: 6rem; margin-bottom: 10px; }
             
-            /* Menu burger tiroir mobile */
             nav ul { 
                 display: none; 
                 flex-direction: column; 
@@ -155,11 +123,9 @@
             .burger-menu { display: flex; }
             nav a.active { border-bottom: none; padding-bottom: 0; font-weight:700; }
 
-            .grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+            .grid { grid-template-columns: repeat(2, 1fr); gap: 20px; } /* Tablettes à 2 colonnes */
             .footer-grid { grid-template-columns: 1fr; gap: 40px; }
             .reassurance-bar { flex-direction: column; gap: 15px; }
-            
-            /* Ajustement du tiroir latéral mini-panier */
             .side-cart { width: 100%; right: -100%; padding: 30px 20px; }
         }
         
@@ -170,9 +136,11 @@
         }
 
         @media (max-width: 480px) {
-            .grid { grid-template-columns: 1fr; gap: 25px; }
+            .grid { grid-template-columns: repeat(2, 1fr); gap: 15px; } /* Téléphones forcés à 2 colonnes avec espacement plus fin */
             .catalog-info-bar { text-align: center; }
             .footer-bottom { flex-direction: column; gap: 15px; text-align: center; }
+            .p-card h4 { font-size: 11px; } /* Légère réduction du titre pour s'aligner proprement */
+            .p-card p { font-size: 12px; }
         }
     </style>
 </head>
@@ -194,6 +162,7 @@
                 <li><a href="bracelets.html" class="active">Bracelets</a></li>
                 <li><a href="bagues.html">Bagues</a></li>
                 <li><a href="boucles.html">Boucles</a></li>
+                <li><a href="favoris.html">Favoris</a></li>
                 <li><a href="panier.html">Panier</a></li>
             </ul>
         </nav>
@@ -202,12 +171,11 @@
     <main>
         <h1 style="text-align:center; margin-bottom:10px; font-weight:300;">Collection <span class="the-seasons" style="font-size:3.5rem;">Bracelets</span></h1>
         
-        <div class="catalog-info-bar">
-            6 modèles disponibles
-        </div>
+        <div class="catalog-info-bar">6 modèles disponibles</div>
 
         <div class="grid">
             <div class="p-card sold-out" onclick="openModal('Bracelet Aurore', '14,00', 'image/aurore1.png', 'image/aurora2.png', false)">
+                <button class="fav-btn" data-name="Bracelet Aurore" data-price="14,00" data-img="image/aurore1.png">♥</button>
                 <img src="image/aurore1.png" alt="Bracelet Aurore">
                 <h4>Bracelet Aurore</h4>
                 <p>14,00 €</p>
@@ -215,20 +183,23 @@
             </div>
 
             <div class="p-card sold-out" onclick="openModal('Jonc Éclat Or', '8,00', 'image/Gemini_Generated_Image_m91a0qm91a0qm91a.jpg', 'porte/Gemini_Generated_Image_6chm0j6chm0j6chm.png', false)">
+                <button class="fav-btn" data-name="Jonc Éclat Or" data-price="8,00" data-img="image/Gemini_Generated_Image_m91a0qm91a0qm91a.jpg">♥</button>
                 <img src="image/Gemini_Generated_Image_m91a0qm91a0qm91a.jpg" alt="Jonc Éclat Or">
                 <h4>Jonc Éclat Or</h4>
                 <p>8,00 €</p>
                 <div class="stock-badge out">Victime de son succès</div>
             </div>
 
-            <div class="p-card sold-out" onclick="openModal('Jonc Marine', '9,00', 'image/Gemini_Generated_Image_8bfocb8bfocb8bfo.jpg', 'porte/Gemini_Generated_Image_1z7hjd1z7hjd1z7h.jpg', true)">
+            <div class="p-card" onclick="openModal('Jonc Marine', '9,00', 'image/Gemini_Generated_Image_8bfocb8bfocb8bfo.jpg', 'porte/Gemini_Generated_Image_1z7hjd1z7hjd1z7h.jpg', true)">
+                <button class="fav-btn" data-name="Jonc Marine" data-price="9,00" data-img="image/Gemini_Generated_Image_8bfocb8bfocb8bfo.jpg">♥</button>
                 <img src="image/Gemini_Generated_Image_8bfocb8bfocb8bfo.jpg" alt="Jonc Marine">
                 <h4>Jonc Marine</h4>
                 <p>9,00 €</p>
-                <div class="stock-badge out"></div>
+                <div class="stock-badge">✨ En Stock</div>
             </div>
 
             <div class="p-card sold-out" onclick="openModal('Bracelet maille Marine', '7,00', 'image/Gemini_Generated_Image_lnpbdblnpbdblnpb.jpg', 'porte/Gemini_Generated_Image_689i1n689i1n689i.jpg', false)">
+                <button class="fav-btn" data-name="Bracelet maille Marine" data-price="7,00" data-img="image/Gemini_Generated_Image_lnpbdblnpbdblnpb.jpg">♥</button>
                 <img src="image/Gemini_Generated_Image_lnpbdblnpbdblnpb.jpg" alt="Bracelet maille Marine">
                 <h4>Bracelet maille Marine</h4>
                 <p>7,00 €</p>
@@ -236,6 +207,7 @@
             </div>
 
             <div class="p-card sold-out" onclick="openModal('Jonc Flaure', '8,00', 'image/Gemini_Generated_Image_4uljkx4uljkx4ulj.jpg', 'porte/Gemini_Generated_Image_tdtii3tdtii3tdti.jpg', false)">
+                <button class="fav-btn" data-name="Jonc Flaure" data-price="8,00" data-img="image/Gemini_Generated_Image_4uljkx4uljkx4ulj.jpg">♥</button>
                 <img src="image/Gemini_Generated_Image_4uljkx4uljkx4ulj.jpg" alt="Jonc Flaure">
                 <h4>Jonc Flaure</h4>
                 <p>8,00 €</p>
@@ -243,6 +215,7 @@
             </div>
 
             <div class="p-card sold-out" onclick="openModal('Jonc Thais', '10,00', 'image/Gemini_Generated_Image_ohc2p8ohc2p8ohc2.jpg', 'porte/Gemini_Generated_Image_qg64ibqg64ibqg64.jpg', false)">
+                <button class="fav-btn" data-name="Jonc Thais" data-price="10,00" data-img="image/Gemini_Generated_Image_ohc2p8ohc2p8ohc2.jpg">♥</button>
                 <img src="image/Gemini_Generated_Image_ohc2p8ohc2p8ohc2.jpg" alt="Jonc Thais">
                 <h4>Jonc Thais</h4>
                 <p>10,00 €</p>
@@ -263,10 +236,7 @@
             <div class="modal-images">
                 <button class="nav-arrow arrow-left" id="prevBtn" onclick="toggleImage()">&#10094;</button>
                 <button class="nav-arrow arrow-right" id="nextBtn" onclick="toggleImage()">&#10095;</button>
-                
-                <div class="main-modal-img">
-                    <img id="mainImg" src="" alt="Bijou">
-                </div>
+                <div class="main-modal-img"><img id="mainImg" src="" alt="Bijou"></div>
             </div>
             <div class="modal-info">
                 <h2 id="modalTitle" class="the-seasons" style="font-size: 2.2rem;">Nom</h2>
@@ -279,7 +249,7 @@
 
     <div id="sideCart" class="side-cart">
         <div class="side-cart-header">
-            <h4><span style="color:#25d366;">✓</span> 1 article a été ajouté à votre panier</h4>
+            <h4><span style="color:#25d366;">✓</span> 1 article ajouté</h4>
             <span class="close-side-cart" onclick="closeSideCart()">&times;</span>
         </div>
         <div class="side-cart-body" id="sideCartBody"></div>
@@ -293,7 +263,7 @@
         <div class="footer-grid">
             <div>
                 <div class="footer-logo">Sunkiss Jewelry</div>
-                <p style="color: #bbb; line-height: 1.7; font-weight: 300;">Inscrivez-vous pour suivre le lancement des prochaines collections capsules exclusives et recevoir nos inspirations de saison.</p>
+                <p style="color: #bbb; line-height: 1.7; font-weight: 300;">Inscrivez-vous pour suivre le lancement des prochaines collections capsules exclusives.</p>
             </div>
             <div>
                 <h4 class="footer-title">Collections</h4>
@@ -309,19 +279,51 @@
                 <ul class="footer-links">
                     <li><a href="panier.html">Mon Panier</a></li>
                     <li><a href="https://www.vinted.fr" target="_blank">Acheter sur Vinted</a></li>
-                    <li><a href="#">Conseils d'Entretien</a></li>
                 </ul>
             </div>
         </div>
         <div class="footer-bottom">
             <p>&copy; 2026 SUNKISS JEWELRY. Tous droits réservés.</p>
-            <p>Paiements sécurisés & Envois garantis par Vinted</p>
         </div>
     </footer>
 
     <script>
         let modalImagesArray = [];
         let currentIndex = 0;
+
+        // Écouteur global pour charger et synchroniser proprement les cœurs sans interférence
+        document.addEventListener("DOMContentLoaded", () => {
+            const favs = JSON.parse(localStorage.getItem('favorites')) || [];
+            
+            // 1. Allumer les cœurs sauvegardés
+            document.querySelectorAll('.fav-btn').forEach(btn => {
+                const name = btn.getAttribute('data-name').trim();
+                if (favs.some(f => f.name.trim() === name)) {
+                    btn.classList.add('active');
+                }
+                
+                // 2. Assigner l'événement clic de manière isolée et sécurisée
+                btn.addEventListener('click', (event) => {
+                    event.stopPropagation(); // Stop l'ouverture de la modale
+                    let currentFavs = JSON.parse(localStorage.getItem('favorites')) || [];
+                    
+                    const pName = btn.getAttribute('data-name').trim();
+                    const pPrice = btn.getAttribute('data-price');
+                    const pImg = btn.getAttribute('data-img');
+                    
+                    const index = currentFavs.findIndex(f => f.name.trim() === pName);
+                    
+                    if (index > -1) {
+                        currentFavs.splice(index, 1);
+                        btn.classList.remove('active');
+                    } else {
+                        currentFavs.push({ name: pName, price: pPrice, img: pImg });
+                        btn.classList.add('active');
+                    }
+                    localStorage.setItem('favorites', JSON.stringify(currentFavs));
+                });
+            });
+        });
 
         function openModal(name, price, img1, img2, inStock) {
             document.getElementById('modalTitle').innerText = name;
@@ -360,7 +362,6 @@
                     localStorage.setItem('cart', JSON.stringify(c));
                     
                     document.getElementById('modalOverlay').style.display = 'none';
-                    
                     document.getElementById('sideCartBody').innerHTML = `
                         <img src="${img1}" class="side-cart-img">
                         <div class="side-cart-details">
@@ -393,10 +394,7 @@
         }
         
         function closeModal(e) { if(e.target.id === 'modalOverlay') { document.getElementById('modalOverlay').style.display = 'none'; } }
-        
-        function closeSideCart() {
-            document.getElementById('sideCart').classList.remove('open');
-        }
+        function closeSideCart() { document.getElementById('sideCart').classList.remove('open'); }
 
         document.addEventListener('click', function(e) {
             const sideCart = document.getElementById('sideCart');
@@ -405,23 +403,13 @@
             }
         });
 
-        // Gestion du menu burger mobile
         function toggleMenu() {
-            const navLinks = document.getElementById('navLinks');
-            navLinks.classList.toggle('mobile-open');
-            
-            const bar1 = document.getElementById('bar1');
-            const bar2 = document.getElementById('bar2');
-            const bar3 = document.getElementById('bar3');
-            
+            const navLinks = document.getElementById('navLinks'); navLinks.classList.toggle('mobile-open');
+            const bar1 = document.getElementById('bar1'); const bar2 = document.getElementById('bar2'); const bar3 = document.getElementById('bar3');
             if(navLinks.classList.contains('mobile-open')) {
-                bar1.style.transform = 'rotate(-45deg) translate(-5px, 5px)';
-                bar2.style.opacity = '0';
-                bar3.style.transform = 'rotate(45deg) translate(-5px, -5px)';
+                bar1.style.transform = 'rotate(-45deg) translate(-5px, 5px)'; bar2.style.opacity = '0'; bar3.style.transform = 'rotate(45deg) translate(-5px, -5px)';
             } else {
-                bar1.style.transform = 'none';
-                bar2.style.opacity = '1';
-                bar3.style.transform = 'none';
+                bar1.style.transform = 'none'; bar2.style.opacity = '1'; bar3.style.transform = 'none';
             }
         }
     </script>
