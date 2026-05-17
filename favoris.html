@@ -28,10 +28,10 @@
         main { padding: 60px 5%; max-width: 1300px; margin: 0 auto; min-height: 55vh; }
         .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px; }
         
-        .p-card { text-align: center; border: 1px solid #eee; padding-bottom: 20px; position: relative; background: #fff; border-radius: 2px; }
+        .p-card { text-align: center; border: 1px solid #eee; padding-bottom: 20px; position: relative; background: #fff; border-radius: 2px; display: flex; flex-direction: column; justify-content: space-between; }
         .p-card img { width: 100%; aspect-ratio: 4/5; object-fit: cover; margin-bottom: 15px; }
-        .p-card h4 { font-weight: 400; text-transform: uppercase; font-size: 12px; padding: 0 10px; }
-        .p-card p { font-weight: 600; font-size: 13px; color: #555; margin-top: 5px; margin-bottom: 15px; }
+        .p-card h4 { font-weight: 400; text-transform: uppercase; font-size: 12px; padding: 0 10px; margin-bottom: 5px; }
+        .p-card p { font-weight: 600; font-size: 13px; color: #555; margin-bottom: 15px; }
         
         /* Boutons d'actions */
         .btn-add-fav { background: black; color: white; border: none; padding: 12px; width: 85%; cursor: pointer; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; font-size: 11px; transition: 0.3s; margin: 0 auto; display: block; }
@@ -50,19 +50,24 @@
         .footer-links a { color: #bbb; text-decoration: none; }
         .footer-bottom { border-top: 1px solid #2a2a2a; padding-top: 30px; display: flex; justify-content: space-between; max-width: 1300px; margin: 0 auto; color: #666; font-size: 11px; }
 
-        /* RESPONSIVE */
+        /* RESPONSIVE IPAD & SMARTPHONE */
         @media (max-width: 950px) {
             .header-section { padding: 20px 5%; }
             .logo-img { height: 6rem; margin-bottom: 10px; }
             nav ul { display: none; flex-direction: column; gap: 20px; padding: 30px 0; width: 100%; background-color: var(--brand-pink); position: absolute; top: 100%; left: 0; box-shadow: 0 10px 10px rgba(0,0,0,0.05); }
             nav ul.mobile-open { display: flex; }
             .burger-menu { display: flex; }
-            nav a[href="favoris.html"] { font-weight: 700; }
+            
             .grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
             .footer-grid { grid-template-columns: 1fr; gap: 40px; }
         }
+        
         @media (max-width: 480px) {
-            .grid { grid-template-columns: 1fr; }
+            .grid { grid-template-columns: repeat(2, 1fr); gap: 15px; } /* Passage forcé à 2 colonnes sur téléphone */
+            .p-card h4 { font-size: 11px; }
+            .p-card p { font-size: 12px; margin-bottom: 10px; }
+            .btn-add-fav { padding: 10px 5px; font-size: 9px; width: 90%; } /* Bouton compact pour petits écrans */
+            .remove-fav-link { font-size: 10px; }
             .footer-bottom { flex-direction: column; gap: 15px; text-align: center; }
         }
     </style>
@@ -125,6 +130,7 @@
     </footer>
 
     <script>
+        // Génère dynamiquement les produits favoris
         function renderFavorites() {
             const favs = JSON.parse(localStorage.getItem('favorites')) || [];
             const container = document.getElementById('fav-grid');
@@ -136,15 +142,20 @@
             
             container.innerHTML = favs.map((item, i) => `
                 <div class="p-card">
-                    <img src="${item.img}">
-                    <h4>${item.name}</h4>
-                    <p>${item.price} €</p>
-                    <button class="btn-add-fav" onclick="ajouterAuPanierDirect('${item.name}', '${item.price}', '${item.img}')">Ajouter au panier</button>
-                    <span class="remove-fav-link" onclick="retirerDesFavoris(${i})">Retirer des favoris</span>
+                    <div>
+                        <img src="${item.img}">
+                        <h4>${item.name}</h4>
+                        <p>${item.price} €</p>
+                    </div>
+                    <div>
+                        <button class="btn-add-fav" onclick="ajouterAuPanierDirect('${item.name}', '${item.price}', '${item.img}')">Ajouter au panier</button>
+                        <span class="remove-fav-link" onclick="retirerDesFavoris(${i})">Retirer</span>
+                    </div>
                 </div>
             `).join('');
         }
 
+        // Ajoute au panier depuis les favoris
         function ajouterAuPanierDirect(name, price, img) {
             let c = JSON.parse(localStorage.getItem('cart')) || [];
             c.push({name: name, price: parseFloat(price.replace(',','.')), img: img});
@@ -152,6 +163,7 @@
             alert(`✓ ${name} a été ajouté à votre panier !`);
         }
 
+        // Supprime un favori
         function retirerDesFavoris(index) {
             let favs = JSON.parse(localStorage.getItem('favorites'));
             favs.splice(index, 1);
@@ -159,8 +171,10 @@
             renderFavorites();
         }
 
+        // Initialisation au chargement
         renderFavorites();
 
+        // Gestion du menu burger mobile
         function toggleMenu() {
             const navLinks = document.getElementById('navLinks'); navLinks.classList.toggle('mobile-open');
             const bar1 = document.getElementById('bar1'); const bar2 = document.getElementById('bar2'); const bar3 = document.getElementById('bar3');
