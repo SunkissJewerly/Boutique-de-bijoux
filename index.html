@@ -10,8 +10,8 @@
             --brand-pink: #ffc5d3; 
             --brand-light: #fff5f6; 
             --text-dark: #1a1a1a; 
-            --text-darker: #0d0d0d; /* Noir profond pour les textes importants */
-            --text-readable-gray: #2d2d2d; /* Gris très foncé pour une lisibilité maximale des descriptions */
+            --text-darker: #0d0d0d; 
+            --text-readable-gray: #2d2d2d; 
             --gray-bg: #fafafa; 
             --whatsapp-color: #25d366; 
         }
@@ -155,26 +155,53 @@
         .contact-item-btn.c-pinterest:hover { border-color: #BD081C; background: #fdf3f4; color: #BD081C; } .contact-item-btn.c-pinterest:hover svg { fill: #BD081C; }
         .contact-item-btn.c-gmail:hover { border-color: #EA4335; background: #fdf4f3; color: #EA4335; } .contact-item-btn.c-gmail:hover svg { fill: #EA4335; }
 
-        /* FENÊTRE POP-UP CONSEILS D'ENTRETIEN RECOLORÉE & STRUCTURÉE */
+        /* FENÊTRE POP-UP CONSEILS D'ENTRETIEN REPENSÉE COMPLÈTEMENT EN RESPONSIVE */
         .care-modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); z-index: 3000; justify-content: center; align-items: center; padding: 20px; backdrop-filter: blur(4px); }
-        .care-modal-content { background: white; width: 100%; max-width: 490px; padding: 40px 30px; position: relative; border-radius: 4px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.15); animation: modalFadeIn 0.3s ease-out; max-height: 90vh; overflow-y: auto; }
-        .close-care-modal { position: absolute; top: 15px; right: 20px; font-size: 28px; cursor: pointer; color: #bbb; transition: 0.2s; }
+        .care-modal-content { 
+            background: white; 
+            width: 100%; 
+            max-width: 680px; /* Un peu plus large pour accueillir les deux colonnes sur ordi */
+            padding: 40px 30px; 
+            position: relative; 
+            border-radius: 4px; 
+            text-align: center; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15); 
+            animation: modalFadeIn 0.3s ease-out; 
+            max-height: 85vh; /* Bloque la hauteur pour éviter que la modale sorte de l'écran sur mobile */
+            overflow-y: auto; /* Active un scroll propre uniquement à l'intérieur de la modale si nécessaire */
+        }
+        .close-care-modal { position: absolute; top: 15px; right: 20px; font-size: 28px; cursor: pointer; color: #bbb; transition: 0.2s; z-index: 10; }
         .close-care-modal:hover { color: #000; }
         
-        .care-modal-title { font-family: 'Cormorant Garamond', serif; font-size: 2.3rem; font-style: italic; font-weight: 600; margin-bottom: 10px; color: var(--brand-pink); /* Titre en Rose */ }
-        .care-modal-subtitle { font-size: 12px; color: var(--text-darker); font-weight: 400; margin-bottom: 30px; line-height: 1.5; }
+        .care-modal-title { font-family: 'Cormorant Garamond', serif; font-size: 2.3rem; font-style: italic; font-weight: 600; margin-bottom: 8px; color: var(--brand-pink); }
+        .care-modal-subtitle { font-size: 12px; color: var(--text-darker); font-weight: 400; margin-bottom: 25px; line-height: 1.5; padding: 0 10px; }
         
-        .care-items-list { display: flex; flex-direction: column; gap: 16px; }
-        .care-item-box { display: flex; align-items: flex-start; gap: 18px; padding: 20px; border: 1px solid #fff0f3; background: #fffcfd; border-radius: 4px; text-align: left; transition: 0.2s; }
+        /* Grille Responsive : 2 colonnes sur grand écran, 1 colonne sur mobile */
+        .care-items-grid { 
+            display: grid; 
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 16px; 
+        }
+        
+        .care-item-box { 
+            display: flex; 
+            align-items: flex-start; 
+            gap: 15px; 
+            padding: 20px; 
+            border: 1px solid #fff0f3; 
+            background: #fffcfd; 
+            border-radius: 4px; 
+            text-align: left; 
+            transition: 0.2s; 
+        }
         .care-item-box:hover { border-color: var(--brand-pink); }
         
-        /* Icônes de la modale en Rose */
-        .care-item-box svg { width: 26px; height: 26px; fill: var(--brand-pink); flex-shrink: 0; margin-top: 2px; }
+        /* Icônes et Titres Roses */
+        .care-item-box svg { width: 24px; height: 24px; fill: var(--brand-pink); flex-shrink: 0; margin-top: 2px; }
+        .care-text-content h4 { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; color: var(--brand-pink); }
         
-        /* Titres internes des conseils en Rose */
-        .care-text-content h4 { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; color: var(--brand-pink); }
-        /* Texte de description assombri pour une excellente lisibilité */
-        .care-text-content p { font-size: 12.5px; line-height: 1.6; color: var(--text-readable-gray); font-weight: 400; }
+        /* Descriptions hyper lisibles et foncées */
+        .care-text-content p { font-size: 12px; line-height: 1.5; color: var(--text-readable-gray); font-weight: 400; }
 
         @keyframes modalFadeIn {
             from { opacity: 0; transform: translateY(10px); }
@@ -245,6 +272,9 @@
             .banner-text-box { padding: 40px 20px; }
             .banner-title { font-size: 32px; }
             .faq-section { margin-bottom: 80px; }
+            
+            /* Ajustement pour la modale sur tablettes */
+            .care-items-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
         }
 
         @media (max-width: 600px) {
@@ -261,7 +291,10 @@
             .manifesto-section { padding: 25px 15px; }
             .manifesto-content h3 { font-size: 28px; }
             
-            .contact-modal-content, .care-modal-content { padding: 35px 20px; }
+            /* FORCE LES BOITES CONSEILS EN 1 COLONNE UNIQUE SUR SMARTPHONE */
+            .care-items-grid { grid-template-columns: 1fr; gap: 12px; }
+            .care-item-box { padding: 15px; }
+            .contact-modal-content, .care-modal-content { padding: 35px 20px; width: 95%; }
             .care-modal-title { font-size: 1.9rem; }
         }
     </style>
@@ -430,28 +463,28 @@
             <h3 class="care-modal-title">Conseils d'Entretien</h3>
             <p class="care-modal-subtitle">Nos bijoux sont conçus pour durer. Suivez ces quelques gestes simples pour qu'ils conservent éternellement leur éclat d'origine.</p>
             
-            <div class="care-items-list">
+            <div class="care-items-grid">
                 <div class="care-item-box">
                     <svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0zM12 0L4.93 7.07a10 10 0 1 0 14.14 0z"/></svg>
                     <div class="care-text-content">
-                        <h4>Eau claire & Vie quotidienne</h4>
-                        <p>Grâce à l'Acier Inoxydable 316L, vos bijoux résistent totalement à l'eau claire et à la douche. Séchez-les doucement après exposition.</p>
+                        <h4>Eau claire & Douche</h4>
+                        <p>Grâce à l'Acier Inoxydable 316L, vos bijoux résistent totalement à l'eau claire et à la douche. Séchez-les simplement après exposition.</p>
                     </div>
                 </div>
 
                 <div class="care-item-box">
                     <svg viewBox="0 0 24 24"><path d="M19 6h-2V5c0-1.1-.9-2-2-2H9c-1.1 0-2 .9-2 2v1H5c-1.1 0-2 .9-2 2v11c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zM9 5h6v1H9V5zm10 14H5V8h14v11z"/></svg>
                     <div class="care-text-content">
-                        <h4>Parfums & Produits Chimiques</h4>
-                        <p>Évitez le contact direct et répété avec les parfums, crèmes corporelles et produits ménagers afin de protéger la brillance du métal.</p>
+                        <h4>Parfums & Crèmes</h4>
+                        <p>Évitez les projections directes et répétées de parfums ou crèmes afin de protéger la brillance naturelle du métal précieux.</p>
                     </div>
                 </div>
 
                 <div class="care-item-box">
                     <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zm-4-6H9v-2h6v2z"/></svg>
                     <div class="care-text-content">
-                        <h4>Rangement Individuel</h4>
-                        <p>Lorsque vous ne portez pas vos bijoux, rangez-les à l'abri de l'humidité dans leur pochon textile pour éviter les frictions et micro-rayures.</p>
+                        <h4>Rangement textile</h4>
+                        <p>Lorsque vous ne portez pas vos bijoux, rangez-les individuellement dans leur petit pochon pour éviter les frictions et rayures.</p>
                     </div>
                 </div>
 
@@ -459,7 +492,7 @@
                     <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L11 15v1c0 1.1.9 2 2 2v1.93zm4.9-3.24c-.26-.81-1-1.35-1.9-1.35h-1v-3c0-.55-.45-1-1-1H9v-2h2c.55 0 1-.45 1-1V5h1c1.9 0 3.5 1.35 3.9 3.21 1.22.95 2.1 2.39 2.1 4.04 0 1.61-.83 3.03-2 3.98v-.5z"/></svg>
                     <div class="care-text-content">
                         <h4>Nettoyage simple</h4>
-                        <p>Un simple coup de chiffon doux (type microfibre) suffit à raviver instantanément l'éclat miroir et la clarté de vos pièces.</p>
+                        <p>Un léger coup de chiffon doux de type microfibre suffit à raviver instantanément l'éclat miroir de vos pièces favorites.</p>
                     </div>
                 </div>
             </div>
@@ -488,7 +521,7 @@
                 <h4 class="footer-title">Aide & Infos</h4>
                 <ul class="footer-links">
                     <li><a href="panier.html">Mon Panier</a></li>
-                    <li><a href="https://www.vinted.fr/member/3134065816" target="_blank">Acheter sur Vinted</a></li>
+                    <li><a href="https://www.vinted.fr" target="_blank">Acheter sur Vinted</a></li>
                     <li><a href="#" onclick="openCareModal(event)">Conseils d'Entretien</a></li>
                     <li><a href="#" onclick="openContactModal(event)">Contactez-nous</a></li>
                 </ul>
@@ -532,7 +565,7 @@
             }
         }
 
-        // FONCTIONS POUR MODALE CONTACT
+        // CONTACT
         function openContactModal(event) {
             event.preventDefault();
             document.getElementById('contactModalOverlay').style.display = 'flex';
@@ -543,7 +576,7 @@
             }
         }
 
-        // FONCTIONS POUR MODALE CONSEILS D'ENTRETIEN
+        // CONSEILS D'ENTRETIEN
         function openCareModal(event) {
             event.preventDefault();
             document.getElementById('careModalOverlay').style.display = 'flex';
