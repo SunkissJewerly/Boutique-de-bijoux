@@ -4,15 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Colliers | SUNKISS JEWELRY</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@1,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,400;1,600&display=swap" rel="stylesheet">
     <style>
-         :root { --brand-pink: #ffc5d3; --brand-light: #fff5f6; --text-dark: #1a1a1a; --out-of-stock: #999; }
+        :root { 
+            --brand-pink: #ffc5d3; 
+            --brand-light: #fff5f6; 
+            --text-dark: #1a1a1a; 
+            --text-darker: #0d0d0d; 
+            --text-readable-gray: #2d2d2d; 
+            --gray-bg: #fafafa; 
+            --whatsapp-color: #25d366; 
+            --out-of-stock: #999; 
+        }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Montserrat', sans-serif; color: var(--text-dark); background: #fff; overflow-x: hidden; }
+        body { font-family: 'Montserrat', sans-serif; color: var(--text-darker); background: #fff; overflow-x: hidden; scroll-behavior: smooth; }
         
         /* BANDEAU D'ANNONCE DÉFILANT EN CONTINU */
         .announcement-bar { 
-            background: var(--text-dark); 
+            background: var(--text-darker); 
             color: #fff; 
             padding: 10px 0; 
             font-size: 11px; 
@@ -37,19 +46,19 @@
             100% { transform: translateX(-50%); }
         }
 
-        /* HEADER FIXE */
+        /* HEADER FIXE NAV */
         .header-section { background-color: var(--brand-pink); padding: 25px 5% 20px 5%; text-align: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
-        .logo-img { height: 10rem; width: auto; margin-bottom: 15px; cursor: pointer; transition: 0.3s; }
+        .logo-img { height: 8rem; width: auto; margin-bottom: 15px; cursor: pointer; transition: 0.3s; }
         .logo-img:hover { opacity: 0.8; }
         
         /* Navigation Bureau */
         nav ul { display: flex; list-style: none; gap: 40px; justify-content: center; transition: 0.3s; }
-        nav a { text-decoration: none; color: var(--text-dark); font-size: 15px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; position: relative; padding-bottom: 5px; }
-        nav a.active::after, nav a:hover::after { content: ""; position: absolute; bottom: 0; left: 0; width: 100%; height: 2px; background: var(--text-dark); }
+        nav a { text-decoration: none; color: var(--text-darker); font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; position: relative; padding-bottom: 5px; }
+        nav a.active::after, nav a:hover::after { content: ""; position: absolute; bottom: 0; left: 0; width: 100%; height: 2px; background: var(--text-darker); }
 
         /* Menu Burger Mobile */
         .burger-menu { display: none; flex-direction: column; gap: 5px; cursor: pointer; position: absolute; top: 35px; right: 5%; z-index: 1001; padding: 5px; }
-        .burger-menu div { width: 25px; height: 2px; background-color: var(--text-dark); transition: 0.3s; }
+        .burger-menu div { width: 25px; height: 2px; background-color: var(--text-darker); transition: 0.3s; }
 
         .the-seasons { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 600; text-transform: none; }
 
@@ -65,8 +74,8 @@
         .p-card img { width: 100%; aspect-ratio: 4/5; object-fit: cover; margin-bottom: 15px; }
         
         .p-card.sold-out img { opacity: 0.85; }
-        .p-card h4 { font-weight: 400; text-transform: uppercase; font-size: 12px; padding: 0 10px; }
-        .p-card p { font-weight: 600; font-size: 13px; color: #555; margin-top: 5px; }
+        .p-card h4 { font-weight: 400; text-transform: uppercase; font-size: 12px; padding: 0 10px; color: var(--text-darker); }
+        .p-card p { font-weight: 600; font-size: 13px; color: var(--text-readable-gray); margin-top: 5px; }
         
         /* BOUTON COEUR FAVORIS */
         .fav-btn { position: absolute; top: 15px; right: 15px; background: white; border: none; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; color: #ccc; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.1); transition: 0.2s ease; z-index: 10; }
@@ -77,8 +86,8 @@
         .stock-badge { display: inline-block; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-top: 8px; padding: 3px 8px; border-radius: 2px; }
         .stock-badge.out { background: #f2f2f2; color: var(--out-of-stock); }
 
-        /* POP-UP MODALE CENTRAL */
-        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 2000; justify-content: center; align-items: center; }
+        /* POP-UP MODALE PRODUIT */
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 2000; justify-content: center; align-items: center; backdrop-filter: blur(2px); }
         .modal-content { background: white; width: 90%; max-width: 800px; display: flex; position: relative; padding: 30px; gap: 30px; border-radius: 4px; }
         .close-modal { position: absolute; top: 10px; right: 15px; font-size: 25px; cursor: pointer; color: #999; z-index: 10; }
         
@@ -150,10 +159,44 @@
 
         /* BARRE DE REASSURANCE */
         .reassurance-bar { display: flex; justify-content: space-around; background: #fafafa; padding: 25px; margin-top: 60px; text-align: center; border-top: 1px solid #eee; }
-        .reassurance-item { font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: #555; }
+        .reassurance-item { font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--text-readable-gray); }
 
-        /* FOOTER */
-        footer { background: var(--text-dark); color: #fff; padding: 80px 5% 30px 5%; font-size: 12px; margin-top: 40px; }
+        /* MODALE CONTACT */
+        .contact-modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); z-index: 3000; justify-content: center; align-items: center; padding: 20px; backdrop-filter: blur(4px); }
+        .contact-modal-content { background: white; width: 100%; max-width: 450px; padding: 40px 30px; position: relative; border-radius: 4px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.15); animation: modalFadeIn 0.3s ease-out; }
+        .close-contact-modal { position: absolute; top: 15px; right: 20px; font-size: 28px; cursor: pointer; color: #bbb; transition: 0.2s; }
+        .close-contact-modal:hover { color: #000; }
+        .contact-modal-title { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 400; margin-bottom: 10px; }
+        .contact-modal-subtitle { font-size: 12px; color: var(--text-readable-gray); font-weight: 300; margin-bottom: 30px; line-height: 1.5; }
+        .contact-links-list { display: flex; flex-direction: column; gap: 15px; }
+        .contact-item-btn { display: flex; align-items: center; gap: 18px; padding: 15px 20px; border: 1px solid #eaeaea; text-decoration: none; color: var(--text-darker); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; border-radius: 2px; transition: 0.3s ease; text-align: left; }
+        .contact-item-btn svg { width: 22px; height: 22px; fill: var(--text-darker); transition: 0.3s; flex-shrink: 0; }
+        .contact-item-btn.c-whatsapp:hover { border-color: #25D366; background: #f4fdf7; color: #25D366; } .contact-item-btn.c-whatsapp:hover svg { fill: #25D366; }
+        .contact-item-btn.c-instagram:hover { border-color: #E1306C; background: #fff5f8; color: #E1306C; } .contact-item-btn.c-instagram:hover svg { fill: #E1306C; }
+        .contact-item-btn.c-pinterest:hover { border-color: #BD081C; background: #fdf3f4; color: #BD081C; } .contact-item-btn.c-pinterest:hover svg { fill: #BD081C; }
+        .contact-item-btn.c-gmail:hover { border-color: #EA4335; background: #fdf4f3; color: #EA4335; } .contact-item-btn.c-gmail:hover svg { fill: #EA4335; }
+
+        /* FENÊTRE POP-UP CONSEILS D'ENTRETIEN RESPONSIVE */
+        .care-modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); z-index: 3000; justify-content: center; align-items: center; padding: 20px; backdrop-filter: blur(4px); }
+        .care-modal-content { background: white; width: 100%; max-width: 680px; padding: 40px 30px; position: relative; border-radius: 4px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.15); animation: modalFadeIn 0.3s ease-out; max-height: 85vh; overflow-y: auto; }
+        .close-care-modal { position: absolute; top: 15px; right: 20px; font-size: 28px; cursor: pointer; color: #bbb; transition: 0.2s; z-index: 10; }
+        .close-care-modal:hover { color: #000; }
+        .care-modal-title { font-family: 'Cormorant Garamond', serif; font-size: 2.3rem; font-style: italic; font-weight: 600; margin-bottom: 8px; color: var(--brand-pink); }
+        .care-modal-subtitle { font-size: 12px; color: var(--text-darker); font-weight: 400; margin-bottom: 25px; line-height: 1.5; padding: 0 10px; }
+        .care-items-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+        .care-item-box { display: flex; align-items: flex-start; gap: 15px; padding: 20px; border: 1px solid #fff0f3; background: #fffcfd; border-radius: 4px; text-align: left; transition: 0.2s; }
+        .care-item-box:hover { border-color: var(--brand-pink); }
+        .care-item-box svg { width: 24px; height: 24px; fill: var(--brand-pink); flex-shrink: 0; margin-top: 2px; }
+        .care-text-content h4 { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; color: var(--brand-pink); }
+        .care-text-content p { font-size: 12px; line-height: 1.5; color: var(--text-readable-gray); font-weight: 400; }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* FOOTER COMPLET AVEC CANAL WHATSAPP */
+        footer { background: var(--text-darker); color: #fff; padding: 80px 5% 30px 5%; font-size: 12px; margin-top: 40px; }
         .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 60px; max-width: 1300px; margin: 0 auto 60px auto; }
         .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-style: italic; margin-bottom: 15px; letter-spacing: 2px; }
         .footer-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 25px; color: var(--brand-pink); }
@@ -161,6 +204,10 @@
         .footer-links li { margin-bottom: 14px; }
         .footer-links a { color: #bbb; text-decoration: none; transition: 0.3s; }
         .footer-links a:hover { color: #fff; padding-left: 5px; }
+        
+        .newsletter-box p { color: #bbb; margin-bottom: 20px; line-height: 1.7; font-weight: 300; }
+        .btn-whatsapp-channel { display: inline-flex; align-items: center; justify-content: center; background: #fff; color: #000; text-decoration: none; padding: 14px 25px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; border-radius: 2px; transition: 0.3s; width: 100%; text-align: center; }
+        .btn-whatsapp-channel:hover { background: var(--brand-pink); color: #000; }
         .footer-bottom { border-top: 1px solid #2a2a2a; padding-top: 30px; display: flex; justify-content: space-between; max-width: 1300px; margin: 0 auto; color: #666; font-size: 11px; }
 
         /* MEDIA QUERIES RESPONSIVE COMPLET (TABLETTES & SMARTPHONES) */
@@ -188,6 +235,7 @@
             .footer-grid { grid-template-columns: 1fr; gap: 40px; }
             .reassurance-bar { flex-direction: column; gap: 15px; }
             .side-cart { width: 100%; right: -100%; padding: 30px 20px; }
+            .care-items-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
         }
         
         @media (max-width: 768px) {
@@ -203,6 +251,10 @@
             .footer-bottom { flex-direction: column; gap: 15px; text-align: center; }
             .p-card h4 { font-size: 11px; } 
             .p-card p { font-size: 12px; }
+            .care-items-grid { grid-template-columns: 1fr; gap: 12px; }
+            .care-item-box { padding: 15px; }
+            .contact-modal-content, .care-modal-content { padding: 35px 20px; width: 95%; }
+            .care-modal-title { font-size: 1.9rem; }
         }
     </style>
 </head>
@@ -303,11 +355,83 @@
         </div>
     </div>
 
+    <div class="contact-modal-overlay" id="contactModalOverlay" onclick="closeContactModal(event)">
+        <div class="contact-modal-content" onclick="event.stopPropagation()">
+            <span class="close-contact-modal" onclick="document.getElementById('contactModalOverlay').style.display='none'">&times;</span>
+            <h3 class="contact-modal-title">Contactez-nous</h3>
+            <p class="contact-modal-subtitle">Une question sur nos collections ou sur votre lot personnalisé ? Notre équipe vous répond avec grand plaisir.</p>
+            
+            <div class="contact-links-list">
+                <a href="https://wa.me/33600000000" target="_blank" class="contact-item-btn c-whatsapp">
+                    <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.513 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.713-1.457L0 24zm6.704-3.418c1.614.957 3.201 1.455 4.936 1.457 5.4 0 9.792-4.387 9.795-9.779.002-2.612-1.01-5.069-2.852-6.913C16.744 3.505 14.285 2.493 11.7 2.493c-5.388 0-9.773 4.383-9.776 9.776-.001 1.83.507 3.491 1.47 5.044l-.995 3.637 3.732-.978zm11.233-5.267c-.294-.147-1.741-.86-2.012-.958-.27-.097-.468-.147-.665.147-.197.294-.76.958-.932 1.153-.171.196-.343.216-.637.069-.294-.148-1.243-.458-2.371-1.464-.878-.782-1.47-1.749-1.642-2.043-.171-.294-.018-.454.129-.601.133-.132.294-.343.441-.515.147-.171.197-.294.294-.49.098-.196.049-.368-.025-.515-.074-.147-.665-1.602-.911-2.19-.241-.577-.483-.499-.664-.508-.171-.008-.368-.01-.565-.01s-.515.074-.786.368c-.27.294-1.031 1.009-1.031 2.46s1.056 2.851 1.203 3.048c.147.197 2.076 3.17 5.031 4.444.703.303 1.252.484 1.68.621.706.224 1.35.193 1.859.117.568-.084 1.741-.711 1.986-1.396.246-.686.246-1.275.172-1.396-.073-.122-.27-.195-.564-.342z"/></svg>
+                    WhatsApp Support
+                </a>
+                <a href="https://instagram.com/sunkiss_jewelry" target="_blank" class="contact-item-btn c-instagram">
+                    <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                    Instagram Direct
+                </a>
+                <a href="https://pinterest.com/sunkiss_jewelry" target="_blank" class="contact-item-btn c-pinterest">
+                    <svg viewBox="0 0 24 24"><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.906 2.17-2.906 1.023 0 1.517.769 1.517 1.691 0 1.029-.655 2.569-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.494 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.416 2.561-5.416 5.204 0 1.03.399 2.137.893 2.738a.317.317 0 01.074.252c-.081.336-.262 1.069-.297 1.213-.047.188-.155.228-.358.134-1.338-.62-2.174-2.563-2.174-4.133 0-3.366 2.446-6.458 7.051-6.458 3.704 0 6.581 2.64 6.581 6.166 0 3.684-2.322 6.651-5.542 6.651-1.082 0-2.1-.563-2.448-1.226 0 0-.535 2.04-.666 2.542-.242.929-.893 2.094-1.329 2.8l1.09.311c4.522 0 8.196-3.666 8.196-8.184V11.97C24.015 5.367 18.632 0 12.017 0z"/></svg>
+                    Pinterest Moods
+                </a>
+                <a href="mailto:sunkissjewelry.pro@gmail.com" class="contact-item-btn c-gmail">
+                    <svg viewBox="0 0 24 24"><path d="M24 4.5v15c0 .85-.65 1.5-1.5 1.5H21V7.39l-9 5.46-9-5.46V21H1.5C.65 21 0 20.35 0 19.5v-15c0-.85.65-1.5 1.5-1.5H3.6l8.4 5.1 8.4-5.1h2.1c.85 0 1.5.65 1.5 1.5z"/></svg>
+                    sunkissjewelry.pro@gmail.com
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="care-modal-overlay" id="careModalOverlay" onclick="closeCareModal(event)">
+        <div class="care-modal-content" onclick="event.stopPropagation()">
+            <span class="close-care-modal" onclick="document.getElementById('careModalOverlay').style.display='none'">&times;</span>
+            <h3 class="care-modal-title">Conseils d'Entretien</h3>
+            <p class="care-modal-subtitle">Nos bijoux sont conçus pour durer. Suivez ces quelques gestes simples pour qu'ils conservent éternellement leur éclat d'origine.</p>
+            
+            <div class="care-items-grid">
+                <div class="care-item-box">
+                    <svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0zM12 0L4.93 7.07a10 10 0 1 0 14.14 0z"/></svg>
+                    <div class="care-text-content">
+                        <h4>Eau claire & Douche</h4>
+                        <p>Grâce à l'Acier Inoxydable 316L, vos bijoux résistent totalement à l'eau claire et à la douche. Séchez-les simplement après exposition.</p>
+                    </div>
+                </div>
+
+                <div class="care-item-box">
+                    <svg viewBox="0 0 24 24"><path d="M19 6h-2V5c0-1.1-.9-2-2-2H9c-1.1 0-2 .9-2 2v1H5c-1.1 0-2 .9-2 2v11c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zM9 5h6v1H9V5zm10 14H5V8h14v11z"/></svg>
+                    <div class="care-text-content">
+                        <h4>Parfums & Crèmes</h4>
+                        <p>Évitez les projections directes et répétées de parfums ou crèmes afin de protéger la brillance naturelle du métal précieux.</p>
+                    </div>
+                </div>
+
+                <div class="care-item-box">
+                    <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zm-4-6H9v-2h6v2z"/></svg>
+                    <div class="care-text-content">
+                        <h4>Rangement textile</h4>
+                        <p>Lorsque vous ne portez pas vos bijoux, rangez-les individuellement dans leur petit pochon pour éviter les frictions et rayures.</p>
+                    </div>
+                </div>
+
+                <div class="care-item-box">
+                    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L11 15v1c0 1.1.9 2 2 2v1.93zm4.9-3.24c-.26-.81-1-1.35-1.9-1.35h-1v-3c0-.55-.45-1-1-1H9v-2h2c.55 0 1-.45 1-1V5h1c1.9 0 3.5 1.35 3.9 3.21 1.22.95 2.1 2.39 2.1 4.04 0 1.61-.83 3.03-2 3.98v-.5z"/></svg>
+                    <div class="care-text-content">
+                        <h4>Nettoyage simple</h4>
+                        <p>Un léger coup de chiffon doux de type microfibre suffit à raviver instantanément l'éclat miroir de vos pièces favorites.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <footer>
         <div class="footer-grid">
-            <div>
+            <div class="newsletter-box">
                 <div class="footer-logo">Sunkiss Jewelry</div>
-                <p style="color: #bbb; line-height: 1.7; font-weight: 300;">Inscrivez-vous pour suivre le lancement des prochaines collections capsules exclusives et recevoir nos inspirations de saison.</p>
+                <p style="color: #bbb; margin-bottom: 20px; line-height: 1.7; font-weight: 300;">Rejoins notre canal WhatsApp exclusif pour suivre le lancement des prochaines collections et recevoir des inspirations de saison en avant-première.</p>
+                <a href="https://whatsapp.com/channel/0029VbCT8OS8PgsCcN5wkQ0C" target="_blank" class="btn-whatsapp-channel">
+                    Rejoindre le Canal 📲
+                </a>
             </div>
             <div>
                 <h4 class="footer-title">Collections</h4>
@@ -323,6 +447,8 @@
                 <ul class="footer-links">
                     <li><a href="panier.html">Mon Panier</a></li>
                     <li><a href="https://www.vinted.fr/member/3134065816" target="_blank">Acheter sur Vinted</a></li>
+                    <li><a href="#" onclick="openCareModal(event)">Conseils d'Entretien</a></li>
+                    <li><a href="#" onclick="openContactModal(event)">Contactez-nous</a></li>
                 </ul>
             </div>
         </div>
@@ -462,6 +588,27 @@
                 bar1.style.transform = 'none';
                 bar2.style.opacity = '1';
                 bar3.style.transform = 'none';
+            }
+        }
+
+        // SCRIPTS LOGIQUE POPUPS
+        function openContactModal(event) {
+            event.preventDefault();
+            document.getElementById('contactModalOverlay').style.display = 'flex';
+        }
+        function closeContactModal(event) {
+            if(event.target.id === 'contactModalOverlay') {
+                document.getElementById('contactModalOverlay').style.display = 'none';
+            }
+        }
+
+        function openCareModal(event) {
+            event.preventDefault();
+            document.getElementById('careModalOverlay').style.display = 'flex';
+        }
+        function closeCareModal(event) {
+            if(event.target.id === 'careModalOverlay') {
+                document.getElementById('careModalOverlay').style.display = 'none';
             }
         }
     </script>

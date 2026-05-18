@@ -118,11 +118,11 @@
         .manifesto-img { width: 45%; aspect-ratio: 1/1; overflow: hidden; border-radius: 2px; }
         .manifesto-img img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* GRILLE MOODBOARD IMMERSIVE */
+        /* GRILLE MOODBOARD IMMERSIVE COMPLÈTEMENT CLIQUABLE */
         .moodboard-section { margin-bottom: 120px; }
         .moodboard-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 20px; height: 550px; }
-        .mood-item { overflow: hidden; position: relative; }
-        .mood-item img { width: 100%; height: 100%; object-fit: cover; transition: 1.2s; }
+        .mood-item { overflow: hidden; position: relative; display: block; width: 100%; height: 100%; }
+        .mood-item img { width: 100%; height: 100%; object-fit: cover; transition: 1.2s; display: block; }
         .mood-item:hover img { transform: scale(1.04); }
 
         /* SECTION FAQ */
@@ -155,52 +155,18 @@
         .contact-item-btn.c-pinterest:hover { border-color: #BD081C; background: #fdf3f4; color: #BD081C; } .contact-item-btn.c-pinterest:hover svg { fill: #BD081C; }
         .contact-item-btn.c-gmail:hover { border-color: #EA4335; background: #fdf4f3; color: #EA4335; } .contact-item-btn.c-gmail:hover svg { fill: #EA4335; }
 
-        /* FENÊTRE POP-UP CONSEILS D'ENTRETIEN REPENSÉE COMPLÈTEMENT EN RESPONSIVE */
+        /* POP-UP CONSEILS D'ENTRETIEN */
         .care-modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); z-index: 3000; justify-content: center; align-items: center; padding: 20px; backdrop-filter: blur(4px); }
-        .care-modal-content { 
-            background: white; 
-            width: 100%; 
-            max-width: 680px; /* Un peu plus large pour accueillir les deux colonnes sur ordi */
-            padding: 40px 30px; 
-            position: relative; 
-            border-radius: 4px; 
-            text-align: center; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15); 
-            animation: modalFadeIn 0.3s ease-out; 
-            max-height: 85vh; /* Bloque la hauteur pour éviter que la modale sorte de l'écran sur mobile */
-            overflow-y: auto; /* Active un scroll propre uniquement à l'intérieur de la modale si nécessaire */
-        }
+        .care-modal-content { background: white; width: 100%; max-width: 680px; padding: 40px 30px; position: relative; border-radius: 4px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.15); animation: modalFadeIn 0.3s ease-out; max-height: 85vh; overflow-y: auto; }
         .close-care-modal { position: absolute; top: 15px; right: 20px; font-size: 28px; cursor: pointer; color: #bbb; transition: 0.2s; z-index: 10; }
         .close-care-modal:hover { color: #000; }
-        
         .care-modal-title { font-family: 'Cormorant Garamond', serif; font-size: 2.3rem; font-style: italic; font-weight: 600; margin-bottom: 8px; color: var(--brand-pink); }
         .care-modal-subtitle { font-size: 12px; color: var(--text-darker); font-weight: 400; margin-bottom: 25px; line-height: 1.5; padding: 0 10px; }
-        
-        /* Grille Responsive : 2 colonnes sur grand écran, 1 colonne sur mobile */
-        .care-items-grid { 
-            display: grid; 
-            grid-template-columns: repeat(2, 1fr); 
-            gap: 16px; 
-        }
-        
-        .care-item-box { 
-            display: flex; 
-            align-items: flex-start; 
-            gap: 15px; 
-            padding: 20px; 
-            border: 1px solid #fff0f3; 
-            background: #fffcfd; 
-            border-radius: 4px; 
-            text-align: left; 
-            transition: 0.2s; 
-        }
+        .care-items-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+        .care-item-box { display: flex; align-items: flex-start; gap: 15px; padding: 20px; border: 1px solid #fff0f3; background: #fffcfd; border-radius: 4px; text-align: left; transition: 0.2s; }
         .care-item-box:hover { border-color: var(--brand-pink); }
-        
-        /* Icônes et Titres Roses */
         .care-item-box svg { width: 24px; height: 24px; fill: var(--brand-pink); flex-shrink: 0; margin-top: 2px; }
         .care-text-content h4 { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; color: var(--brand-pink); }
-        
-        /* Descriptions hyper lisibles et foncées */
         .care-text-content p { font-size: 12px; line-height: 1.5; color: var(--text-readable-gray); font-weight: 400; }
 
         @keyframes modalFadeIn {
@@ -221,7 +187,6 @@
         .newsletter-box p { color: #bbb; margin-bottom: 20px; line-height: 1.7; font-weight: 300; }
         .btn-whatsapp-channel { display: inline-flex; align-items: center; justify-content: center; background: #fff; color: #000; text-decoration: none; padding: 14px 25px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; border-radius: 2px; transition: 0.3s; width: 100%; text-align: center; }
         .btn-whatsapp-channel:hover { background: var(--brand-pink); color: #000; }
-
         .footer-bottom { border-top: 1px solid #2a2a2a; padding-top: 30px; display: flex; justify-content: space-between; max-width: 1400px; margin: 0 auto; color: #666; font-size: 11px; }
 
         /* --- MEDIA QUERIES RESPONSIVE --- */
@@ -272,8 +237,6 @@
             .banner-text-box { padding: 40px 20px; }
             .banner-title { font-size: 32px; }
             .faq-section { margin-bottom: 80px; }
-            
-            /* Ajustement pour la modale sur tablettes */
             .care-items-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
         }
 
@@ -290,8 +253,6 @@
             .footer-bottom { flex-direction: column; gap: 15px; text-align: center; }
             .manifesto-section { padding: 25px 15px; }
             .manifesto-content h3 { font-size: 28px; }
-            
-            /* FORCE LES BOITES CONSEILS EN 1 COLONNE UNIQUE SUR SMARTPHONE */
             .care-items-grid { grid-template-columns: 1fr; gap: 12px; }
             .care-item-box { padding: 15px; }
             .contact-modal-content, .care-modal-content { padding: 35px 20px; width: 95%; }
@@ -335,7 +296,7 @@
     <div class="hero-banner">
         <div class="hero-content">
             <p class="hero-subtitle">Maison de Bijoux Fins</p>
-            <h2 class="hero-main-title">Sublimer Votre Éclat Naturel</h2>
+            <h2 class="hero-main-title">Sublimer Your Éclat Naturel</h2>
             <a href="bracelets.html" class="btn-hero">Explorer la collection</a>
         </div>
     </div>
@@ -376,19 +337,25 @@
             <div class="manifesto-content">
                 <h3>Des bijoux pensés pour durer</h3>
                 <p>Chez Sunkiss Jewelry, nous croyons qu'un bijou doit traverser les instants de votre vie sans jamais perdre de son éclat. C'est pourquoi nous sélectionnons rigoureusement de l'acier inoxydable de haute qualité pour toutes nos créations.</p>
-                <p>Résistant à l'eau, au parfum et aux épreuves du quotidien, chaque jonc, bague ou collier est conçu pour de venir une seconde peau. Une alliance parfaite entre finesse esthétique et robustesse absolue.</p>
+                <p>Résistant à l'eau, au parfum et aux épreuves du quotidien, chaque jonc, bague ou collier est conçu pour devenir une seconde peau. Une alliance parfaite entre finesse esthétique et robustesse absolue.</p>
             </div>
             <div class="manifesto-img">
-                <img src="image/Gemini_Generated_Image_m91a0qm91a0qm91a.jpg" alt="Détail bijoux Sunkiss">
+                <img src="image/Gemini_Generated_Image_u7rb75u7rb75u7rb.jpg" alt="Détail bijoux Sunkiss">
             </div>
         </div>
 
         <h2 class="section-title">Les Instants <span class="the-seasons" style="font-size:3.5rem;">Sunkiss</span></h2>
         <div class="moodboard-section">
             <div class="moodboard-grid">
-                <div class="mood-item"><img src="image/Gemini_Generated_Image_lnpbdblnpbdblnpb.jpg" alt="Ambiance"></div>
-                <div class="mood-item"><img src="image/Gemini_Generated_Image_ohc2p8ohc2p8ohc2.jpg" alt="Zoom détails"></div>
-                <div class="mood-item"><img src="image/Gemini_Generated_Image_sw5nd5sw5nd5sw5n.jpg" alt="Porté délicat"></div>
+                <a href="bracelets.html" class="mood-item">
+                    <img src="image/Gemini_Generated_Image_lnpbdblnpbdblnpb.jpg" alt="Ambiance - Collection Bracelets">
+                </a>
+                <a href="colliers.html" class="mood-item">
+                    <img src="image/Gemini_Generated_Image_i0l0yhi0l0yhi0l0 (1).jpg" alt="Zoom détails - Collection Colliers">
+                </a>
+                <a href="bagues.html" class="mood-item">
+                    <img src="image/Gemini_Generated_Image_sw5nd5sw5nd5sw5n.jpg" alt="Porté délicat - Collection Bagues">
+                </a>
             </div>
         </div>
 
