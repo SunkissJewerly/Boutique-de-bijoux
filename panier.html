@@ -10,6 +10,33 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Montserrat', sans-serif; color: var(--text-dark); background: #fff; overflow-x: hidden; }
         
+        /* BANDEAU D'ANNONCE DÉFILANT EN CONTINU */
+        .announcement-bar { 
+            background: var(--text-dark); 
+            color: #fff; 
+            padding: 10px 0; 
+            font-size: 11px; 
+            font-weight: 500; 
+            letter-spacing: 2px; 
+            text-transform: uppercase;
+            overflow: hidden; 
+            white-space: nowrap; 
+            display: flex;
+            position: relative;
+        }
+        .announcement-track {
+            display: flex;
+            width: max-content;
+            animation: marquee 25s linear infinite;
+        }
+        .announcement-text {
+            padding-right: 50px;
+        }
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        
         /* HEADER FIXE */
         .header-section { background-color: var(--brand-pink); padding: 25px 5% 20px 5%; text-align: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
         .logo-img { height: 10rem; width: auto; margin-bottom: 15px; cursor: pointer; transition: 0.3s; }
@@ -120,6 +147,7 @@
         }
 
         @media (max-width: 480px) {
+            .announcement-bar { font-size: 9px; letter-spacing: 1px; }
             main { padding: 40px 5%; }
             .item { gap: 15px; }
             .item img { width: 65px; height: 85px; }
@@ -131,6 +159,15 @@
     </style>
 </head>
 <body>
+
+    <div class="announcement-bar">
+        <div class="announcement-track">
+            <span class="announcement-text">✨ LIVRAISON GARANTIE & SÉCURISÉE VIA LES LOTS VINTED ✨ &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp; 1 bijou offert dès 30€ d'achat !</span>
+            <span class="announcement-text">✨ LIVRAISON GARANTIE & SÉCURISÉE VIA LES LOTS VINTED ✨ &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp; 1 bijou offert dès 30€ d'achat !</span>
+            <span class="announcement-text">✨ LIVRAISON GARANTIE & SÉCURISÉE VIA LES LOTS VINTED ✨ &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp; 1 bijou offert dès 30€ d'achat !</span>
+            <span class="announcement-text">✨ LIVRAISON GARANTIE & SÉCURISÉE VIA LES LOTS VINTED ✨ &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp; 1 bijou offert dès 30€ d'achat !</span>
+        </div>
+    </div>
 
     <div class="header-section">
         <img src="logo.png" class="logo-img" onclick="window.location='index.html'">
@@ -222,12 +259,11 @@
 
     <script>
         let totalBrut = 0;
-        let tauxReduction = 0; // Ex: 0.20 pour -20%, 0.30 pour -30%
+        let tauxReduction = 0; 
         let codeAppliqueActivement = "";
 
-        // Base de données dynamique de tes codes promo
         const listeCodesPromos = {
-            "SUMMER26": 0.20 // Configuré pour appliquer -20% de réduction (Modifiable ici)
+            "SUMMER26": 0.20 
         };
 
         function show() {
@@ -323,7 +359,6 @@
         
         show();
 
-        // Gestion du menu burger mobile
         function toggleMenu() {
             const navLinks = document.getElementById('navLinks');
             navLinks.classList.toggle('mobile-open');

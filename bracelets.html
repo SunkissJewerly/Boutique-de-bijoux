@@ -10,6 +10,33 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Montserrat', sans-serif; color: var(--text-dark); background: #fff; overflow-x: hidden; }
         
+        /* BANDEAU D'ANNONCE DÉFILANT EN CONTINU */
+        .announcement-bar { 
+            background: var(--text-dark); 
+            color: #fff; 
+            padding: 10px 0; 
+            font-size: 11px; 
+            font-weight: 500; 
+            letter-spacing: 2px; 
+            text-transform: uppercase;
+            overflow: hidden; 
+            white-space: nowrap; 
+            display: flex;
+            position: relative;
+        }
+        .announcement-track {
+            display: flex;
+            width: max-content;
+            animation: marquee 25s linear infinite;
+        }
+        .announcement-text {
+            padding-right: 50px;
+        }
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
         /* HEADER FIXE */
         .header-section { background-color: var(--brand-pink); padding: 25px 5% 20px 5%; text-align: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
         .logo-img { height: 10rem; width: auto; margin-bottom: 15px; cursor: pointer; transition: 0.3s; }
@@ -66,6 +93,20 @@
         .arrow-right { right: 10px; }
 
         .modal-info { width: 50%; display: flex; flex-direction: column; justify-content: center; text-align: left; }
+        
+        /* OPTIONS DE COULEURS */
+        .color-selector-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; margin-top: 5px;}
+        .color-dots-container { display: flex; gap: 12px; margin-bottom: 25px; }
+        .color-dot { width: 28px; height: 28px; border-radius: 50%; border: 2px solid #eee; cursor: pointer; transition: 0.2s ease; position: relative; }
+        .color-dot:hover { transform: scale(1.1); }
+        .color-dot.selected { border-color: #000; box-shadow: 0 0 0 1px #000; }
+        
+        /* Pastilles Thais Couleurs Temp (Ajuste les codes hexadécimaux si tu le souhaites) */
+        .dot-blue { background-color: #7fa1c3; }
+        .dot-white { background-color: #ffffff; border: 1px solid #ddd; }
+        .dot-green { background-color: #557c55; }
+        .dot-pink { background-color: #f3afbc; }
+
         .btn-add-modal { background: black; color: white; border: none; padding: 18px; width: 100%; cursor: pointer; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; font-size: 12px; transition: 0.3s; }
         .btn-add-modal.disabled { background: #e0e0e0; color: #888; cursor: not-allowed; }
 
@@ -102,7 +143,7 @@
         .footer-links a:hover { color: #fff; padding-left: 5px; }
         .footer-bottom { border-top: 1px solid #2a2a2a; padding-top: 30px; display: flex; justify-content: space-between; max-width: 1300px; margin: 0 auto; color: #666; font-size: 11px; }
 
-        /* MEDIA QUERIES RESPONSIVE COMPLET (TABLETTES & SMARTPHONES) */
+        /* MEDIA QUERIES RESPONSIVE COMPLET */
         @media (max-width: 950px) {
             .header-section { padding: 20px 5%; }
             .logo-img { height: 6rem; margin-bottom: 10px; }
@@ -123,7 +164,7 @@
             .burger-menu { display: flex; }
             nav a.active { border-bottom: none; padding-bottom: 0; font-weight:700; }
 
-            .grid { grid-template-columns: repeat(2, 1fr); gap: 20px; } /* Tablettes à 2 colonnes */
+            .grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
             .footer-grid { grid-template-columns: 1fr; gap: 40px; }
             .reassurance-bar { flex-direction: column; gap: 15px; }
             .side-cart { width: 100%; right: -100%; padding: 30px 20px; }
@@ -136,15 +177,25 @@
         }
 
         @media (max-width: 480px) {
-            .grid { grid-template-columns: repeat(2, 1fr); gap: 15px; } /* Téléphones forcés à 2 colonnes avec espacement plus fin */
+            .announcement-bar { font-size: 9px; letter-spacing: 1px; }
+            .grid { grid-template-columns: repeat(2, 1fr); gap: 15px; } 
             .catalog-info-bar { text-align: center; }
             .footer-bottom { flex-direction: column; gap: 15px; text-align: center; }
-            .p-card h4 { font-size: 11px; } /* Légère réduction du titre pour s'aligner proprement */
+            .p-card h4 { font-size: 11px; } 
             .p-card p { font-size: 12px; }
         }
     </style>
 </head>
 <body>
+
+    <div class="announcement-bar">
+        <div class="announcement-track">
+            <span class="announcement-text">✨ LIVRAISON GARANTIE & SÉCURISÉE VIA LES LOTS VINTED ✨ &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp; 1 bijou offert dès 30€ d'achat !</span>
+            <span class="announcement-text">✨ LIVRAISON GARANTIE & SÉCURISÉE VIA LES LOTS VINTED ✨ &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp; 1 bijou offert dès 30€ d'achat !</span>
+            <span class="announcement-text">✨ LIVRAISON GARANTIE & SÉCURISÉE VIA LES LOTS VINTED ✨ &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp; 1 bijou offert dès 30€ d'achat !</span>
+            <span class="announcement-text">✨ LIVRAISON GARANTIE & SÉCURISÉE VIA LES LOTS VINTED ✨ &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp; 1 bijou offert dès 30€ d'achat !</span>
+        </div>
+    </div>
 
     <div class="header-section">
         <img src="logo.png" alt="SUNKISS" class="logo-img" onclick="window.location='index.html'">
@@ -214,12 +265,12 @@
                 <div class="stock-badge out">Victime de son succès</div>
             </div>
 
-            <div class="p-card sold-out" onclick="openModal('Jonc Thais', '10,00', 'image/Gemini_Generated_Image_ohc2p8ohc2p8ohc2.jpg', 'porte/Gemini_Generated_Image_qg64ibqg64ibqg64.jpg', false)">
-                <button class="fav-btn" data-name="Jonc Thais" data-price="10,00" data-img="image/Gemini_Generated_Image_ohc2p8ohc2p8ohc2.jpg">♥</button>
+            <div class="p-card" onclick="openModal('Jonc Thais', '10,00', 'porte/Gemini_Generated_Image_qg64ibqg64ibqg64.jpg', '', true, true)">
+                <button class="fav-btn" data-name="Jonc Thais" data-price="10,00" data-img="porte/Gemini_Generated_Image_qg64ibqg64ibqg64.jpg">♥</button>
                 <img src="image/Gemini_Generated_Image_ohc2p8ohc2p8ohc2.jpg" alt="Jonc Thais">
                 <h4>Jonc Thais</h4>
                 <p>10,00 €</p>
-                <div class="stock-badge out">Victime de son succès</div>
+                <div class="stock-badge">✨ En Stock</div>
             </div>
         </div>
 
@@ -242,6 +293,17 @@
                 <h2 id="modalTitle" class="the-seasons" style="font-size: 2.2rem;">Nom</h2>
                 <p id="modalPrice" style="font-size: 1.3rem; margin: 10px 0;">0,00 €</p>
                 <p id="modalStockStatus" style="font-size: 11px; font-weight: 600; text-transform: uppercase; color: var(--out-of-stock); margin-bottom: 20px; letter-spacing: 1px;"></p>
+                
+                <div id="colorSelectorArea" style="display: none;">
+                    <div class="color-selector-title">Couleur : <span id="selectedColorName" style="font-weight: 400; text-transform: none;">Bleu</span></div>
+                    <div class="color-dots-container">
+                        <div class="color-dot dot-blue selected" onclick="selectThaisColor('Bleu', 'porte/Gemini_Generated_Image_qg64ibqg64ibqg64.jpg', this)"></div>
+                        <div class="color-dot dot-white" onclick="selectThaisColor('Blanc', 'porte/Gemini_Generated_Image_ej18v9ej18v9ej18blanc.jpg', this)"></div>
+                        <div class="color-dot dot-green" onclick="selectThaisColor('Vert', 'porte/Gemini_Generated_Image_s62hbus62hbus62hvert.jpg', this)"></div>
+                        <div class="color-dot dot-pink" onclick="selectThaisColor('Rose', 'porte/Gemini_Generated_Image_s62hbus62hbus62hrose.jpg', this)"></div>
+                    </div>
+                </div>
+
                 <button class="btn-add-modal" id="addBtn">Ajouter au panier</button>
             </div>
         </div>
@@ -290,21 +352,20 @@
     <script>
         let modalImagesArray = [];
         let currentIndex = 0;
+        let thaisSelectedColor = "Bleu"; // Couleur par défaut pour Thais
+        let thaisSelectedImg = "porte/Gemini_Generated_Image_qg64ibqg64ibqg64.jpg";
 
-        // Écouteur global pour charger et synchroniser proprement les cœurs sans interférence
         document.addEventListener("DOMContentLoaded", () => {
             const favs = JSON.parse(localStorage.getItem('favorites')) || [];
             
-            // 1. Allumer les cœurs sauvegardés
             document.querySelectorAll('.fav-btn').forEach(btn => {
                 const name = btn.getAttribute('data-name').trim();
                 if (favs.some(f => f.name.trim() === name)) {
                     btn.classList.add('active');
                 }
                 
-                // 2. Assigner l'événement clic de manière isolée et sécurisée
                 btn.addEventListener('click', (event) => {
-                    event.stopPropagation(); // Stop l'ouverture de la modale
+                    event.stopPropagation(); 
                     let currentFavs = JSON.parse(localStorage.getItem('favorites')) || [];
                     
                     const pName = btn.getAttribute('data-name').trim();
@@ -325,25 +386,61 @@
             });
         });
 
-        function openModal(name, price, img1, img2, inStock) {
+        // Fonction pour changer l'image et la couleur sélectionnée de Thais
+        function selectThaisColor(colorName, imgSrc, dotElement) {
+            thaisSelectedColor = colorName;
+            thaisSelectedImg = imgSrc;
+            
+            // Met à jour l'image principale de la modale
+            document.getElementById('mainImg').src = imgSrc;
+            // Met à jour le texte du nom de la couleur
+            document.getElementById('selectedColorName').innerText = colorName;
+            
+            // Gère l'effet visuel de sélection autour du cercle cliqué
+            document.querySelectorAll('.color-dot').forEach(dot => dot.classList.remove('selected'));
+            dotElement.classList.add('selected');
+        }
+
+        function openModal(name, price, img1, img2, inStock, hasColors = false) {
             document.getElementById('modalTitle').innerText = name;
             document.getElementById('modalPrice').innerText = price + " €";
             
-            modalImagesArray = [img1];
-            if (img2) { modalImagesArray.push(img2); }
+            const colorSelectorArea = document.getElementById('colorSelectorArea');
             
-            currentIndex = 0;
-            document.getElementById('mainImg').src = modalImagesArray[currentIndex];
-
-            const leftArrow = document.getElementById('prevBtn');
-            const rightArrow = document.getElementById('nextBtn');
-            
-            if (modalImagesArray.length > 1) {
-                leftArrow.style.display = "flex";
-                rightArrow.style.display = "flex";
+            // Si c'est le bracelet Thais (avec options couleurs activées)
+            if (hasColors) {
+                colorSelectorArea.style.display = "block";
+                // Reset sur le bleu par défaut à chaque ouverture
+                thaisSelectedColor = "Bleu";
+                thaisSelectedImg = img1;
+                document.getElementById('mainImg').src = thaisSelectedImg;
+                document.getElementById('selectedColorName').innerText = "Bleu";
+                document.querySelectorAll('.color-dot').forEach(dot => dot.classList.remove('selected'));
+                document.querySelector('.dot-blue').classList.add('selected');
+                
+                // On cache les flèches de défilement génériques car on navigue via les cercles de couleurs
+                document.getElementById('prevBtn').style.display = "none";
+                document.getElementById('nextBtn').style.display = "none";
             } else {
-                leftArrow.style.display = "none";
-                rightArrow.style.display = "none";
+                // Pour les autres bijoux, on cache les cercles de couleurs
+                colorSelectorArea.style.display = "none";
+                
+                modalImagesArray = [img1];
+                if (img2) { modalImagesArray.push(img2); }
+                
+                currentIndex = 0;
+                document.getElementById('mainImg').src = modalImagesArray[currentIndex];
+
+                const leftArrow = document.getElementById('prevBtn');
+                const rightArrow = document.getElementById('nextBtn');
+                
+                if (modalImagesArray.length > 1) {
+                    leftArrow.style.display = "flex";
+                    rightArrow.style.display = "flex";
+                } else {
+                    leftArrow.style.display = "none";
+                    rightArrow.style.display = "none";
+                }
             }
             
             const addBtn = document.getElementById('addBtn');
@@ -358,14 +455,19 @@
                 
                 addBtn.onclick = function() {
                     let c = JSON.parse(localStorage.getItem('cart')) || [];
-                    c.push({name: name, price: parseFloat(price.replace(',','.')), img: img1});
+                    
+                    // Si c'est Thais, on prend l'image et la couleur sélectionnée dynamiquement
+                    let finalName = hasColors ? `${name} (${thaisSelectedColor})` : name;
+                    let finalImg = hasColors ? thaisSelectedImg : img1;
+
+                    c.push({name: finalName, price: parseFloat(price.replace(',','.')), img: finalImg});
                     localStorage.setItem('cart', JSON.stringify(c));
                     
                     document.getElementById('modalOverlay').style.display = 'none';
                     document.getElementById('sideCartBody').innerHTML = `
-                        <img src="${img1}" class="side-cart-img">
+                        <img src="${finalImg}" class="side-cart-img">
                         <div class="side-cart-details">
-                            <div class="side-cart-name">${name}</div>
+                            <div class="side-cart-name">${finalName}</div>
                             <div class="side-cart-price">${price} €</div>
                         </div>
                     `;
